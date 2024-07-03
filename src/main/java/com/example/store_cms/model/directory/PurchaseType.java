@@ -18,6 +18,7 @@ public class PurchaseType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(length = 150, nullable = false)
     private String name;
 }

@@ -19,11 +19,11 @@ public class Purchase {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "electro_id",referencedColumnName = "id")
+    @JoinColumn(name = "electro_id", referencedColumnName = "id")
     private ElectroItem electroItem;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id",referencedColumnName = "id")
+    @JoinColumn(name = "employee_id", referencedColumnName = "id")
     private Employee employee;
 
     @ManyToOne

@@ -101,3 +101,7 @@ form {
         margin-top: 10px;
     }
 }
+.nav-link.active {
+    font-weight: bold;
+    color: #007bff;
+}

@@ -16,21 +16,35 @@
         <h4>Разделы</h4>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a id="navElectroItem" class="nav-link active"  data-category="electrotovary">Электротовары</a>
+                <a id="navElectroItem" class="nav-link active" data-category="electrotovary">Электротовары</a>
             </li>
             <li class="nav-item">
-                <a id="navPurchase" class="nav-link"  data-category="pokupki">Покупки</a>
+                <a id="navPurchase" class="nav-link" data-category="pokupki">Покупки</a>
             </li>
             <li class="nav-item">
                 <a id="navEmployee" class="nav-link" data-category="sotrudniki">Сотрудники</a>
+            </li>
+            <li class="nav-item">
+                <a id="navReferences" class="nav-link" data-category="references">Справочники</a>
             </li>
         </ul>
     </nav>
     <main class="content">
         <h2 id="contentTitle">Магазины</h2>
+
+        <div id="subcategoryContainer" style="display: none;">
+            <label for="subcategorySelect">Выберите подкатегорию:</label>
+            <select id="subcategorySelect" class="form-control">
+                <option value="position_type">Position Type</option>
+                <option value="purchase_type">Purchase Type</option>
+                <option value="electro_type">Electro Type</option>
+                <option value="shop">Shop</option>
+            </select>
+        </div>
+
         <div class="table-container">
             <table class="table table-bordered" id="itemsTable">
-                <thead>
+                <thead id="tableHeader">
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
@@ -44,7 +58,6 @@
             <button class="btn btn-secondary" id="loadMoreButton" data-category="electrotovary">Показать еще</button>
         </div>
         <div class="actions d-flex align-items-center">
-            <button class="btn btn-success">Добавить</button>
             <div class="import-section d-flex align-items-center ml-3">
                 <h3 class="mb-0 mr-3">Импорт данных из csv-файла</h3>
                 <form>

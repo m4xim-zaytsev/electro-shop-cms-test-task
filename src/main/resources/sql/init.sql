@@ -65,9 +65,10 @@ CREATE TABLE electro_shop (
 );
 
 CREATE TABLE electro_employee (
+                                  id BIGSERIAL PRIMARY KEY,
+
                                   employee_id BIGINT,
                                   electro_type_id BIGINT,
-                                  PRIMARY KEY (employee_id, electro_type_id),
                                   FOREIGN KEY (employee_id) REFERENCES employee(id),
                                   FOREIGN KEY (electro_type_id) REFERENCES electro_type(id)
 );

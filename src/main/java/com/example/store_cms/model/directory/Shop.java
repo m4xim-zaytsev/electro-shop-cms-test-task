@@ -17,13 +17,15 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Shop  {
+public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(length = 150, nullable = false)
     private String name;
-    @OneToMany(mappedBy = "shop",cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<ElectroShop> electroShops;
 }
