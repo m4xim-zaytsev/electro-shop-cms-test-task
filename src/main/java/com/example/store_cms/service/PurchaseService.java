@@ -10,8 +10,8 @@ public interface PurchaseService {
     List<Purchase> findAll();
     Page<Purchase> getAllPurchasePageable(Integer offset, Integer limit);
 
-    Purchase create(Purchase purchase);
+    Purchase create(Purchase purchase, Long electorId, Long employeeId,Long typeId, Long shopId);
     Purchase getById(Long id);
-    Purchase update(Long id, Purchase purchase);
+    Purchase update(Long id, Purchase purchase, Long electorId, Long employeeId,Long typeId, Long shopId);
     void delete(Long id);
 }

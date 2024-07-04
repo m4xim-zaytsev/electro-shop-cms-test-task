@@ -5,6 +5,7 @@ import com.example.store_cms.exception.EntityNotFoundException;
 import com.example.store_cms.model.directory.PositionType;
 import com.example.store_cms.repository.PositionTypeRepository;
 import com.example.store_cms.service.PositionTypeService;
+import com.example.store_cms.utility.BeanUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -44,17 +45,20 @@ public class PositionTypeServiceImpl implements PositionTypeService {
 
     @Override
     public PositionType getById(Long id) {
-        return null;
+        return positionTypeRepository.findById(id) .orElseThrow(()->new EntityNotFoundException(
+                MessageFormat.format("positionType with id {0} not found", id)));
     }
 
     @Override
     public PositionType update(Long id, PositionType positionType) {
-        return null;
-    }
+        PositionType existing = getById(id);
+        BeanUtils.copyProperties(existing, positionType);
+        return positionTypeRepository.save(existing);    }
 
 
     @Override
     public void delete(Long id) {
+        positionTypeRepository.deleteById(id);
 
     }
 }

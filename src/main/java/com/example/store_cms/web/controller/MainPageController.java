@@ -1,4 +1,4 @@
-package com.example.store_cms.web.controller.page;
+package com.example.store_cms.web.controller;
 
 import com.example.store_cms.model.directory.*;
 import com.example.store_cms.model.registry.ElectroItem;
@@ -6,13 +6,11 @@ import com.example.store_cms.model.registry.Employee;
 import com.example.store_cms.model.registry.Purchase;
 import com.example.store_cms.service.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+
 
 @Controller
 @RequestMapping("/api/v1/main")
@@ -28,8 +26,7 @@ public class MainPageController {
     private final ShopService shopService;
 
     @GetMapping
-    public String mainPage(Model model) {
-
+    public String mainPage() {
         return "index";
     }
 

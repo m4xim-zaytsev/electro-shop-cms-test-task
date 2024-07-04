@@ -1,13 +1,17 @@
 package com.example.store_cms.service.impl;
 
+import com.example.store_cms.exception.EntityNotFoundException;
 import com.example.store_cms.model.directory.PurchaseType;
 import com.example.store_cms.repository.PurchaseTypeRepository;
 import com.example.store_cms.service.PurchaseTypeService;
+import com.example.store_cms.utility.BeanUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.text.MessageFormat;
 
 @Service
 @RequiredArgsConstructor
@@ -23,21 +27,26 @@ public class PurchaseTypeServiceImpl implements PurchaseTypeService {
 
     @Override
     public PurchaseType create(PurchaseType purchaseType) {
-        return null;
+        return purchaseTypeRepository.save(purchaseType);
     }
 
     @Override
     public PurchaseType getById(Long id) {
-        return null;
+        return purchaseTypeRepository.findById(id)
+                .orElseThrow(()->new EntityNotFoundException(
+                        MessageFormat.format("purchaseType with id {0} not found", id)));
     }
 
     @Override
     public PurchaseType update(Long id, PurchaseType purchaseType) {
-        return null;
+        PurchaseType existing = getById(id);
+        BeanUtils.copyProperties(existing, purchaseType);
+        return purchaseTypeRepository.save(existing);
     }
 
     @Override
     public void delete(Long id) {
+        purchaseTypeRepository.deleteById(id);
 
     }
 }

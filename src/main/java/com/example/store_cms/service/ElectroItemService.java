@@ -9,8 +9,9 @@ import java.util.List;
 public interface ElectroItemService {
     List<ElectroItem> findAll();
     Page<ElectroItem> getAllElectroItemPageable(Integer offset, Integer limit);
-    ElectroItem create(ElectroItem electroItem);
+    ElectroItem create(ElectroItem electroItem, Long electroTypeId, Long shopId,
+                       Integer countLast);
     ElectroItem getById(Long id);
-    ElectroItem update(Long id, ElectroItem electroItem);
+    ElectroItem update(Long id, ElectroItem electroItem, Long electroTypeId);
     void delete(Long id);
 }
