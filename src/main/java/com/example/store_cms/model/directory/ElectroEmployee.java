@@ -1,6 +1,5 @@
 package com.example.store_cms.model.directory;
 
-
 import com.example.store_cms.model.registry.Employee;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;

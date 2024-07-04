@@ -1,16 +1,10 @@
 package com.example.store_cms.model.directory;
 
-import com.example.store_cms.model.registry.ElectroItem;
-import com.example.store_cms.model.registry.Employee;
-import com.example.store_cms.model.registry.Purchase;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
 
 @Getter
 @Setter
@@ -24,6 +18,8 @@ public class Shop {
 
     @Column(length = 150, nullable = false)
     private String name;
+
+    private String address;
 
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
     @JsonManagedReference

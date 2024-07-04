@@ -1,6 +1,7 @@
 package com.example.store_cms.web.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,12 +13,16 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PurchaseRequest {
+    @NotNull(message = "ElectroItem ID is mandatory")
     private Long electroItemId;
+    @NotNull(message = "Employee ID is mandatory")
     private Long employeeId;
+    @NotNull(message = "Shop ID is mandatory")
     private Long shopId;
+    @NotNull(message = "PurchaseType ID is mandatory")
     private Long purchaseTypeId;
-
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @NotNull(message = "Purchase date is mandatory")
     private Date purchaseDate;
 }

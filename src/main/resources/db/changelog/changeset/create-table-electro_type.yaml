@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: maxim
+      changes:
+        - createTable:
+            tableName: electro_type
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(150)
+                  constraints:
+                    nullable: false

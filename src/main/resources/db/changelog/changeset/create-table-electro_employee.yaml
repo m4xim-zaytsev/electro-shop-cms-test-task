@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id:  create-table-electro_employee
+      author: maxim
+      changes:
+        - createTable:
+            tableName: electro_employee
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: employee_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_electro_employee_employee
+                    references: employee(id)
+              - column:
+                  name: electro_type_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_electro_employee_type
+                    references: electro_type(id)

@@ -1,6 +1,5 @@
 package com.example.store_cms.service;
 
-import com.example.store_cms.model.directory.ElectroEmployee;
 import com.example.store_cms.model.directory.Shop;
 import org.springframework.data.domain.Page;
 

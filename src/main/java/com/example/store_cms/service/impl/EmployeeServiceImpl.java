@@ -6,7 +6,6 @@ import com.example.store_cms.model.directory.PositionType;
 import com.example.store_cms.model.directory.Shop;
 import com.example.store_cms.model.registry.Employee;
 import com.example.store_cms.repository.EmployeeRepository;
-import com.example.store_cms.repository.PositionTypeRepository;
 import com.example.store_cms.service.*;
 import com.example.store_cms.utility.BeanUtils;
 import lombok.RequiredArgsConstructor;

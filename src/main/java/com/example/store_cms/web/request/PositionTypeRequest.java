@@ -1,5 +1,6 @@
 package com.example.store_cms.web.request;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PositionTypeRequest {
+    @NotBlank(message = "Name is mandatory")
     private String name;
-
 }

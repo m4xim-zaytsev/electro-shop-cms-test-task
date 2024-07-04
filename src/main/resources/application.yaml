@@ -1,8 +1,8 @@
 spring:
-#  sql:
-#    init:
-#      mode: always
-#      data-locations: classpath:sql/init.sql
+  sql:
+    init:
+      mode: never
+      data-locations: classpath:sql/init.sql
   web:
     resources:
       static-locations: classpath:/spring-frontend/
@@ -23,6 +23,6 @@ spring:
       connection-init-sql: CREATE SCHEMA IF NOT EXISTS store_app_schema
       connection-timeout: 10000
   liquibase:
-    enabled: false
+    enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
 

@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changeset/create-table-position_type.yaml
+  - include:
+      file: db/changelog/changeset/create-table-purchase_type.yaml
+  - include:
+      file: db/changelog/changeset/create-table-electro_type.yaml
+  - include:
+      file: db/changelog/changeset/create-table-shop.yaml
+  - include:
+      file: db/changelog/changeset/create-table-employee.yaml
+  - include:
+      file: db/changelog/changeset/create-table-electro_item.yaml
+  - include:
+      file: db/changelog/changeset/create-table-purchase.yaml
+  - include:
+      file: db/changelog/changeset/create-table-electro_shop.yaml
+  - include:
+      file: db/changelog/changeset/create-table-electro_employee.yaml
+

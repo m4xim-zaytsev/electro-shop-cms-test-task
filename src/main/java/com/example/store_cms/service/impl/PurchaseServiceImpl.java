@@ -1,7 +1,6 @@
 package com.example.store_cms.service.impl;
 
 import com.example.store_cms.exception.EntityNotFoundException;
-import com.example.store_cms.model.directory.PositionType;
 import com.example.store_cms.model.directory.PurchaseType;
 import com.example.store_cms.model.directory.Shop;
 import com.example.store_cms.model.registry.ElectroItem;

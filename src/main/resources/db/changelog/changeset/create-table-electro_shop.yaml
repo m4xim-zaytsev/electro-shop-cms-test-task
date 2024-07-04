@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 8
+      author: maxim
+      changes:
+        - createTable:
+            tableName: electro_shop
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: shop_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_electro_shop_shop
+                    references: shop(id)
+              - column:
+                  name: electro_item_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_electro_shop_item
+                    references: electro_item(id)
+              - column:
+                  name: count
+                  type: INT

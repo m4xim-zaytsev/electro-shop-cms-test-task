@@ -1,78 +1,3 @@
-CREATE TABLE position_type (
-                               id BIGSERIAL PRIMARY KEY,
-                               name VARCHAR(150) NOT NULL
-);
-
-CREATE TABLE purchase_type (
-                               id BIGSERIAL PRIMARY KEY,
-                               name VARCHAR(150) NOT NULL
-);
-
-CREATE TABLE electro_type (
-                              id BIGSERIAL PRIMARY KEY,
-                              name VARCHAR(150) NOT NULL
-);
-
-CREATE TABLE shop (
-                      id BIGSERIAL PRIMARY KEY,
-                      name VARCHAR(150) NOT NULL
-);
-
-CREATE TABLE employee (
-                          id BIGSERIAL PRIMARY KEY,
-                          last_name VARCHAR(100) NOT NULL,
-                          first_name VARCHAR(100) NOT NULL,
-                          patronymic VARCHAR(100),
-                          birth_date DATE,
-                          position_id BIGINT,
-                          shop_id BIGINT,
-                          gender BOOLEAN,
-                          FOREIGN KEY (position_id) REFERENCES position_type(id),
-                          FOREIGN KEY (shop_id) REFERENCES shop(id)
-);
-
-CREATE TABLE electro_item (
-                              id BIGSERIAL PRIMARY KEY,
-                              name VARCHAR(150) NOT NULL,
-                              price BIGINT,
-                              count INT,
-                              archive BOOLEAN,
-                              description TEXT,
-                              etype_id BIGINT,
-                              FOREIGN KEY (etype_id) REFERENCES electro_type(id)
-);
-
-CREATE TABLE purchase (
-                          id BIGSERIAL PRIMARY KEY,
-                          electro_id BIGINT,
-                          employee_id BIGINT,
-                          shop_id BIGINT,
-                          type_id BIGINT,
-                          purchase_date TIMESTAMP,
-                          FOREIGN KEY (electro_id) REFERENCES electro_item(id),
-                          FOREIGN KEY (employee_id) REFERENCES employee(id),
-                          FOREIGN KEY (shop_id) REFERENCES shop(id),
-                          FOREIGN KEY (type_id) REFERENCES purchase_type(id)
-);
-
-CREATE TABLE electro_shop (
-                              id BIGSERIAL PRIMARY KEY,
-                              shop_id BIGINT,
-                              electro_item_id BIGINT,
-                              count INT,
-                              FOREIGN KEY (shop_id) REFERENCES shop(id),
-                              FOREIGN KEY (electro_item_id) REFERENCES electro_item(id)
-);
-
-CREATE TABLE electro_employee (
-                                  id BIGSERIAL PRIMARY KEY,
-
-                                  employee_id BIGINT,
-                                  electro_type_id BIGINT,
-                                  FOREIGN KEY (employee_id) REFERENCES employee(id),
-                                  FOREIGN KEY (electro_type_id) REFERENCES electro_type(id)
-);
-
 
 -- Inserting data into position_type
 INSERT INTO position_type (name) VALUES
@@ -96,11 +21,11 @@ INSERT INTO electro_type (name) VALUES
                                     ('Desktop');
 
 -- Inserting data into shop
-INSERT INTO shop (name) VALUES
-                            ('ElectroWorld'),
-                            ('TechHub'),
-                            ('GadgetStore'),
-                            ('DeviceMart');
+INSERT INTO shop (address,name) VALUES
+                            ('address 1','ElectroWorld'),
+                            ('address 2','TechHub'),
+                            ('address 3','GadgetStore'),
+                            ('address 4','DeviceMart');
 
 -- Inserting data into employee
 INSERT INTO employee (last_name, first_name, patronymic, birth_date, position_id, shop_id, gender) VALUES

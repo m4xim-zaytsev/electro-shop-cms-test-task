@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: maxim
+      changes:
+        - createTable:
+            tableName: shop
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: address
+                  type: TEXT
+              - column:
+                  name: name
+                  type: VARCHAR(150)
+                  constraints:
+                    nullable: false

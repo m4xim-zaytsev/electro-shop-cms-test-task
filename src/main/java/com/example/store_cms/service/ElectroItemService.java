@@ -1,7 +1,6 @@
 package com.example.store_cms.service;
 
 import com.example.store_cms.model.registry.ElectroItem;
-import com.example.store_cms.model.registry.Employee;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

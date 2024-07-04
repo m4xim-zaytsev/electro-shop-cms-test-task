@@ -1,7 +1,6 @@
 package com.example.store_cms.model.registry;
 
 import com.example.store_cms.model.directory.ElectroEmployee;
-import com.example.store_cms.model.directory.ElectroType;
 import com.example.store_cms.model.directory.PositionType;
 import com.example.store_cms.model.directory.Shop;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,8 +9,6 @@ import lombok.*;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
-
 
 @Getter
 @Setter

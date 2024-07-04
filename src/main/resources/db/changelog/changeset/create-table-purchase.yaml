@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 7
+      author: maxim
+      changes:
+        - createTable:
+            tableName: purchase
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: electro_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_purchase_electro
+                    references: electro_item(id)
+              - column:
+                  name: employee_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_purchase_employee
+                    references: employee(id)
+              - column:
+                  name: shop_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_purchase_shop
+                    references: shop(id)
+              - column:
+                  name: type_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_purchase_type
+                    references: purchase_type(id)
+              - column:
+                  name: purchase_date
+                  type: TIMESTAMP
