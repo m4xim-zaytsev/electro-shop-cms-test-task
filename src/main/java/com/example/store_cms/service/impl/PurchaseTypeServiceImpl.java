@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +24,11 @@ public class PurchaseTypeServiceImpl implements PurchaseTypeService {
     public Page<PurchaseType> getAllPurchaseTypePageable(Integer offset, Integer limit) {
         Pageable nextPage = PageRequest.of(offset,limit);
         return purchaseTypeRepository.findAll(nextPage);
+    }
+
+    @Override
+    public List<PurchaseType> findAll() {
+        return purchaseTypeRepository.findAll();
     }
 
     @Override

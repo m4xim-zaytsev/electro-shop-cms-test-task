@@ -33,16 +33,82 @@ $(document).ready(function() {
         }
 
         if (category === 'references') {
-            // Set the headers for references
-            tableHeader.html(`
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Action</th>
-                </tr>
-            `);
+            const subcategory = $('#subcategorySelect').val();
+            switch (subcategory) {
+                case 'position_type':
+                    tableHeader.html(`
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                    `);
+                    data.forEach(item => {
+                        const row = `<tr>
+                            <td>${item.id}</td>
+                            <td>${item.name || ''}</td>
+                            <td><a href="/references/positiontypes/edit/${item.id}" class="btn btn-primary">Edit</a></td>
+                        </tr>`;
+                        tableBody.append(row);
+                    });
+                    break;
+                case 'purchase_type':
+                    tableHeader.html(`
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                    `);
+                    data.forEach(item => {
+                        const row = `<tr>
+                            <td>${item.id}</td>
+                            <td>${item.name || ''}</td>
+                            <td><a href="/references/purchasetypes/edit/${item.id}" class="btn btn-primary">Edit</a></td>
+                        </tr>`;
+                        tableBody.append(row);
+                    });
+                    break;
+                case 'electro_type':
+                    tableHeader.html(`
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                    `);
+                    data.forEach(item => {
+                        const row = `<tr>
+                            <td>${item.id}</td>
+                            <td>${item.name || ''}</td>
+                            <td><a href="/references/electrotypes/edit/${item.id}" class="btn btn-primary">Edit</a></td>
+                        </tr>`;
+                        tableBody.append(row);
+                    });
+                    break;
+                case 'shop':
+                    tableHeader.html(`
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Action</th>
+                        </tr>
+                    `);
+                    data.forEach(item => {
+                        const row = `<tr>
+                            <td>${item.id}</td>
+                            <td>${item.name || ''}</td>
+                            <td>${item.address || ''}</td>
+                            <td><a href="/references/shop/edit/${item.id}" class="btn btn-primary">Edit</a></td>
+                        </tr>`;
+                        tableBody.append(row);
+                    });
+                    break;
+                default:
+                    break;
+            }
         } else {
-            // Set the headers for other categories
             tableHeader.html(`
                 <tr>
                     <th>Id</th>
@@ -51,40 +117,34 @@ $(document).ready(function() {
                     <th>Action</th>
                 </tr>
             `);
-        }
 
-        data.forEach(item => {
-            let row = '';
-            if (category === 'electrotovary') {
-                row = `<tr>
-                        <td>${item.id}</td>
-                        <td>${item.name || ''}</td>
-                        <td>${item.description || ''}</td>
-                        <td><button class="btn btn-primary">Action</button></td>
-                    </tr>`;
-            } else if (category === 'pokupki') {
-                row = `<tr>
-                        <td>${item.id}</td>
-                        <td>${item.electroItem ? item.electroItem.name : ''}</td>
-                        <td>${item.purchaseDate || ''}</td>
-                        <td><button class="btn btn-primary">Action</button></td>
-                    </tr>`;
-            } else if (category === 'sotrudniki') {
-                row = `<tr>
-                        <td>${item.id}</td>
-                        <td>${item.lastName ? item.lastName + ' ' + (item.firstName || '') : ''}</td>
-                        <td>${item.positionType ? item.positionType.name : ''}</td>
-                        <td><button class="btn btn-primary">Action</button></td>
-                    </tr>`;
-            } else if (category === 'references') {
-                row = `<tr>
-                        <td>${item.id}</td>
-                        <td>${item.name || ''}</td>
-                        <td><button class="btn btn-primary">Action</button></td>
-                    </tr>`;
-            }
-            tableBody.append(row);
-        });
+            data.forEach(item => {
+                let row = '';
+                if (category === 'electrotovary') {
+                    row = `<tr>
+                            <td>${item.id}</td>
+                            <td>${item.name || ''}</td>
+                            <td>${item.description || ''}</td>
+                            <td><a href="/electrotovary/edit/${item.id}" class="btn btn-primary">Edit</a></td>
+                        </tr>`;
+                } else if (category === 'pokupki') {
+                    row = `<tr>
+                            <td>${item.id}</td>
+                            <td>${item.electroItem ? item.electroItem.name : ''}</td>
+                            <td>${item.purchaseDate || ''}</td>
+                            <td><a href="/pokupki/edit/${item.id}" class="btn btn-primary">Edit</a></td>
+                        </tr>`;
+                } else if (category === 'sotrudniki') {
+                    row = `<tr>
+                            <td>${item.id}</td>
+                            <td>${item.lastName ? item.lastName + ' ' + (item.firstName || '') : ''}</td>
+                            <td>${item.positionType ? item.positionType.name : ''}</td>
+                            <td><a href="/sotrudniki/edit/${item.id}" class="btn btn-primary">Edit</a></td>
+                        </tr>`;
+                }
+                tableBody.append(row);
+            });
+        }
     }
 
     function loadCategory(category) {

@@ -3,6 +3,7 @@ package com.example.store_cms.model.registry;
 import com.example.store_cms.model.directory.ElectroEmployee;
 import com.example.store_cms.model.directory.PositionType;
 import com.example.store_cms.model.directory.Shop;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -37,7 +38,7 @@ public class Employee {
     private PositionType positionType;
 
     @ManyToOne
-    @JoinColumn(name = "shop_id", referencedColumnName = "id")
+    @JoinColumn(name = "shop_id")
     private Shop shop;
 
     @OneToMany(mappedBy = "employee")
@@ -45,4 +46,8 @@ public class Employee {
     private List<ElectroEmployee> electroEmployees;
 
     private Boolean gender;
+
+    public String getFullName() {
+        return firstName + " " + (patronymic != null ? patronymic + " " : "") + lastName;
+    }
 }

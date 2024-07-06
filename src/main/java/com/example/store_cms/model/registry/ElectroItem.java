@@ -30,7 +30,8 @@ public class ElectroItem {
         @JoinColumn(name = "etype_id", referencedColumnName = "id")
         private ElectroType electroType;
 
-        @OneToMany(mappedBy = "electroItem")
+
+        @OneToMany(mappedBy = "electroItem", cascade = CascadeType.ALL)
         @JsonManagedReference
         private List<ElectroShop> electroShops;
 }

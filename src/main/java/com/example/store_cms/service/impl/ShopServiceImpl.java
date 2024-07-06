@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -46,5 +47,10 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public void delete(Long id) {
         shopRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Shop> findAll() {
+        return shopRepository.findAll();
     }
 }

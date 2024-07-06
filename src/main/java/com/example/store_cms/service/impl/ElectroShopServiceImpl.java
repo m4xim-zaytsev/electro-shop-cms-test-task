@@ -16,4 +16,9 @@ public class ElectroShopServiceImpl implements ElectroShopService {
     public ElectroShop save(ElectroShop electroShop) {
         return electroShopRepository.save(electroShop);
     }
+
+    @Override
+    public ElectroShop findByElectroItemId(Long id) {
+        return findByElectroItemId(id);
+    }
 }

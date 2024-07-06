@@ -71,4 +71,9 @@ public class MainPageController {
     public List<Shop> getShop(@RequestParam Integer offset, @RequestParam Integer limit) {
         return shopService.getAllShopPageable(offset, limit).getContent();
     }
+
+    @DeleteMapping("/references/shop/delete/{id}")
+    public void deleteShop(@PathVariable("id") Long id) {
+        shopService.delete(id);
+    }
 }

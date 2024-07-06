@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +24,11 @@ public class ElectroTypeServiceImpl implements ElectroTypeService {
     public Page<ElectroType> getAllElectroTypePageable(Integer offset, Integer limit) {
         Pageable nexPage = PageRequest.of(offset,limit);
         return electroTypeRepository.findAll(nexPage);
+    }
+
+    @Override
+    public List<ElectroType> findAll() {
+        return electroTypeRepository.findAll();
     }
 
     @Override

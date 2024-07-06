@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирование сотрудника</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Редактирование сотрудника</h2>
+    <form th:action="@{/sotrudniki/edit/{id}(id=${employee.id})}" th:object="${employee}" method="post">
+        <div class="form-group">
+            <label for="firstName">Имя</label>
+            <input type="text" class="form-control" id="firstName" th:field="*{firstName}">
+        </div>
+        <div class="form-group">
+            <label for="lastName">Фамилия</label>
+            <input type="text" class="form-control" id="lastName" th:field="*{lastName}">
+        </div>
+        <div class="form-group">
+            <label for="positionType">Тип должности</label>
+            <select class="form-control" id="positionType" th:field="*{positionType.name}">
+                <option th:each="positionType : ${positionTypes}"
+                        th:value="${positionType.name}"
+                        th:text="${positionType.name}">
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="shop">Магазин</label>
+            <select class="form-control" id="shop" th:field="*{shop.id}">
+                <option th:each="shop : ${shops}"
+                        th:value="${shop.id}"
+                        th:text="${shop.name}">
+                </option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a th:href="@{/sotrudniki}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

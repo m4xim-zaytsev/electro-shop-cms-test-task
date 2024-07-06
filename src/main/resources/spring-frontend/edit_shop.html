@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Редактирование магазина</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h2>Редактирование магазина</h2>
+  <form th:action="@{/references/shop/edit/{id}(id=${shop.id})}" th:object="${shop}" method="post">
+    <div class="form-group">
+      <label for="name">Название</label>
+      <input type="text" class="form-control" id="name" th:field="*{name}" required>
+    </div>
+    <div class="form-group">
+      <label for="address">Адрес</label>
+      <input type="text" class="form-control" id="address" th:field="*{address}">
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a th:href="@{/}" class="btn btn-secondary">Отмена</a>
+  </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

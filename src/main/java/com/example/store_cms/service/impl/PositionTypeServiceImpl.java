@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
+import java.util.List;
 
 
 @Service
@@ -60,5 +61,10 @@ public class PositionTypeServiceImpl implements PositionTypeService {
     public void delete(Long id) {
         positionTypeRepository.deleteById(id);
 
+    }
+
+    @Override
+    public List<PositionType> findAll() {
+        return positionTypeRepository.findAll();
     }
 }

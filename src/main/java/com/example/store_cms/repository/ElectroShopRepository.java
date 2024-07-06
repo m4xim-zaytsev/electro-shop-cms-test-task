@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ElectroShopRepository  extends JpaRepository<ElectroShop, Long>
         , JpaSpecificationExecutor<ElectroShop> {
+
+    ElectroShop findByElectroItemId(Long id);
 }

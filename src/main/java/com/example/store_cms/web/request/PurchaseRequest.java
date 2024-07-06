@@ -21,8 +21,8 @@ public class PurchaseRequest {
     private Long shopId;
     @NotNull(message = "PurchaseType ID is mandatory")
     private Long purchaseTypeId;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @NotNull(message = "Purchase date is mandatory")
     private Date purchaseDate;
 }

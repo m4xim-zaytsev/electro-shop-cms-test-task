@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Редактирование покупки</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h2>Редактирование покупки</h2>
+  <form th:action="@{/pokupki/edit/{id}(id=${purchase.id})}" th:object="${purchase}" method="post">
+    <div class="form-group">
+      <label for="electroItem">Электротовар</label>
+      <select class="form-control" id="electroItem" th:field="*{electroItem.id}" required>
+        <option th:each="electroItem : ${electroItems}"
+                th:value="${electroItem.id}"
+                th:text="${electroItem.name}">
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="employee">Сотрудник</label>
+      <select class="form-control" id="employee" th:field="*{employee.id}" required>
+        <option th:each="employee : ${employees}"
+                th:value="${employee.id}"
+                th:text="${employee.fullName}">
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="shop">Магазин</label>
+      <select class="form-control" id="shop" th:field="*{shop.id}" required>
+        <option th:each="shop : ${shops}"
+                th:value="${shop.id}"
+                th:text="${shop.name}">
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="purchaseType">Тип покупки</label>
+      <select class="form-control" id="purchaseType" th:field="*{purchaseType.id}" required>
+        <option th:each="purchaseType : ${purchaseTypes}"
+                th:value="${purchaseType.id}"
+                th:text="${purchaseType.name}">
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="purchaseDate">Дата покупки</label>
+      <input type="datetime-local" class="form-control" id="purchaseDate" th:field="*{purchaseDate}" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a th:href="@{/}" class="btn btn-secondary">Отмена</a>
+  </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

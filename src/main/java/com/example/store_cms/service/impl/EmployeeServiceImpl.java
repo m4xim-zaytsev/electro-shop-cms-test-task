@@ -62,12 +62,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee update(Long id, Employee employee, Long shopId, String positionType) {
-        PositionType type = positionTypeService.findByName(positionType);
-        Shop shop =shopService.getById(shopId);
         Employee toUpdate = getById(id);
-        BeanUtils.copyProperties(toUpdate,employee);
-        toUpdate.setShop(shop);
+        PositionType type = positionTypeService.findByName(positionType);
+        Shop shop = shopService.getById(shopId);
+
+        toUpdate.setFirstName(employee.getFirstName());
+        toUpdate.setLastName(employee.getLastName());
         toUpdate.setPositionType(type);
+        toUpdate.setShop(shop);
+
         return employeeRepository.save(toUpdate);
     }
 
