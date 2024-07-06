@@ -3,6 +3,7 @@ package com.example.store_cms.web.controller;
 import com.example.store_cms.model.directory.ElectroType;
 import com.example.store_cms.service.ElectroTypeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,5 +26,11 @@ public class ElectroTypeController {
     public String editElectroType(@PathVariable("id") Long id, @ModelAttribute("electroType") ElectroType electroType) {
         electroTypeService.update(id, electroType);
         return "redirect:/api/v1/main";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        electroTypeService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }

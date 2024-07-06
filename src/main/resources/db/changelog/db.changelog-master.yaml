@@ -17,4 +17,3 @@ databaseChangeLog:
       file: db/changelog/changeset/create-table-electro_shop.yaml
   - include:
       file: db/changelog/changeset/create-table-electro_employee.yaml
-

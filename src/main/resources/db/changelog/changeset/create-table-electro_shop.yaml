@@ -18,12 +18,14 @@ databaseChangeLog:
                   constraints:
                     foreignKeyName: fk_electro_shop_shop
                     references: shop(id)
+                    onDelete: CASCADE
               - column:
                   name: electro_item_id
                   type: BIGINT
                   constraints:
                     foreignKeyName: fk_electro_shop_item
                     references: electro_item(id)
+                    onDelete: CASCADE
               - column:
                   name: count
                   type: INT

@@ -6,6 +6,7 @@ import com.example.store_cms.service.EmployeeService;
 import com.example.store_cms.service.PositionTypeService;
 import com.example.store_cms.service.ShopService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,5 +34,11 @@ public class EmployeeController {
                                  @ModelAttribute Employee employee) {
         employeeService.update(id, employee, employee.getShop().getId(), employee.getPositionType().getName());
         return "redirect:/api/v1/main";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        employeeService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }

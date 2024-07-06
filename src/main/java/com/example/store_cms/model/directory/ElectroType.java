@@ -1,5 +1,6 @@
 package com.example.store_cms.model.directory;
 
+import com.example.store_cms.model.registry.ElectroItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,7 +20,11 @@ public class ElectroType {
     @Column(length = 150, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "electroType")
+    @OneToMany(mappedBy = "electroType",cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<ElectroItem> electroItems;
+
+    @OneToMany(mappedBy = "electroType",cascade = CascadeType.ALL)
     @JsonIgnore
     private List<ElectroEmployee> electroEmployees;
 }

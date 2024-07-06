@@ -4,6 +4,7 @@ import com.example.store_cms.model.registry.Purchase;
 import com.example.store_cms.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,4 +48,9 @@ public class PurchaseController {
         return "redirect:/api/v1/main";
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        purchaseService.delete(id);
+        return ResponseEntity.ok().build();
+    }
 }

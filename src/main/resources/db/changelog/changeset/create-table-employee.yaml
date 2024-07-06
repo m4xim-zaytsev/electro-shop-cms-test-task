@@ -34,12 +34,14 @@ databaseChangeLog:
                   constraints:
                     foreignKeyName: fk_employee_position
                     references: position_type(id)
+                    onDelete: CASCADE
               - column:
                   name: shop_id
                   type: BIGINT
                   constraints:
                     foreignKeyName: fk_employee_shop
                     references: shop(id)
+                    onDelete: CASCADE
               - column:
                   name: gender
                   type: BOOLEAN

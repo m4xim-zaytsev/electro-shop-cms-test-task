@@ -18,24 +18,28 @@ databaseChangeLog:
                   constraints:
                     foreignKeyName: fk_purchase_electro
                     references: electro_item(id)
+                    onDelete: CASCADE
               - column:
                   name: employee_id
                   type: BIGINT
                   constraints:
                     foreignKeyName: fk_purchase_employee
                     references: employee(id)
+                    onDelete: CASCADE
               - column:
                   name: shop_id
                   type: BIGINT
                   constraints:
                     foreignKeyName: fk_purchase_shop
                     references: shop(id)
+                    onDelete: CASCADE
               - column:
                   name: type_id
                   type: BIGINT
                   constraints:
                     foreignKeyName: fk_purchase_type
                     references: purchase_type(id)
+                    onDelete: CASCADE
               - column:
                   name: purchase_date
                   type: TIMESTAMP

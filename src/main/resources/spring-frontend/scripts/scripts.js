@@ -130,7 +130,7 @@ $(document).ready(function() {
                 } else if (category === 'pokupki') {
                     row = `<tr>
                             <td>${item.id}</td>
-                            <td>${item.electroItem ? item.electroItem.name : ''}</td>
+                            <td>${item.electroItemResponse ? item.electroItemResponse.name : ''}</td>
                             <td>${item.purchaseDate || ''}</td>
                             <td><a href="/pokupki/edit/${item.id}" class="btn btn-primary">Edit</a></td>
                         </tr>`;
@@ -138,7 +138,7 @@ $(document).ready(function() {
                     row = `<tr>
                             <td>${item.id}</td>
                             <td>${item.lastName ? item.lastName + ' ' + (item.firstName || '') : ''}</td>
-                            <td>${item.positionType ? item.positionType.name : ''}</td>
+                            <td>${item.positionTypeResponse ? item.positionTypeResponse.name : ''}</td>
                             <td><a href="/sotrudniki/edit/${item.id}" class="btn btn-primary">Edit</a></td>
                         </tr>`;
                 }

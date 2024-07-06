@@ -7,6 +7,7 @@ import com.example.store_cms.service.ElectroItemService;
 import com.example.store_cms.service.ElectroTypeService;
 import com.example.store_cms.service.ShopService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,12 @@ public class ElectroItemController {
                                     @ModelAttribute("electroItem") ElectroItem updatedElectroItem) {
         electroItemService.update(id, updatedElectroItem, updatedElectroItem.getElectroType().getId());
         return "redirect:/api/v1/main";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        electroItemService.delete(id);
+        return ResponseEntity.ok().build();
     }
 
 }

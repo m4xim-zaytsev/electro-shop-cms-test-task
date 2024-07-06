@@ -1,7 +1,10 @@
 package com.example.store_cms.model.directory;
 
+import com.example.store_cms.model.registry.Purchase;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,4 +18,7 @@ public class PurchaseType {
 
     @Column(length = 150, nullable = false)
     private String name;
+
+    @OneToMany(mappedBy = "purchaseType", cascade = CascadeType.ALL)
+    private List<Purchase> purchases;
 }

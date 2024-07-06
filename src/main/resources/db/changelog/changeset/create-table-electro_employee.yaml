@@ -18,9 +18,12 @@ databaseChangeLog:
                   constraints:
                     foreignKeyName: fk_electro_employee_employee
                     references: employee(id)
+                    onDelete: CASCADE
               - column:
                   name: electro_type_id
                   type: BIGINT
                   constraints:
                     foreignKeyName: fk_electro_employee_type
                     references: electro_type(id)
+                    onDelete: CASCADE
+

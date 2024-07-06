@@ -13,17 +13,18 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "electro_employee")
 public class ElectroEmployee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id", referencedColumnName = "id")
+    @JoinColumn(name = "employee_id")
     @JsonBackReference
     private Employee employee;
 
     @ManyToOne
-    @JoinColumn(name = "electro_type_id", referencedColumnName = "id")
+    @JoinColumn(name = "electro_type_id")
     private ElectroType electroType;
 }

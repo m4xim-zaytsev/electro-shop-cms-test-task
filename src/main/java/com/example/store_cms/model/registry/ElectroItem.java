@@ -27,9 +27,12 @@ public class ElectroItem {
         private String description;
 
         @ManyToOne
-        @JoinColumn(name = "etype_id", referencedColumnName = "id")
+        @JoinColumn(name = "etype_id")
         private ElectroType electroType;
 
+        @OneToMany(mappedBy = "electroItem", cascade = CascadeType.ALL)
+        @JsonManagedReference
+        private List<Purchase> purchases;
 
         @OneToMany(mappedBy = "electroItem", cascade = CascadeType.ALL)
         @JsonManagedReference

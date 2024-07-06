@@ -3,6 +3,7 @@ package com.example.store_cms.web.controller;
 import com.example.store_cms.model.directory.PositionType;
 import com.example.store_cms.service.PositionTypeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,5 +26,11 @@ public class PositionTypeController {
     public String editPositionType(@PathVariable("id") Long id, @ModelAttribute("positionType") PositionType positionType) {
         positionTypeService.update(id, positionType);
         return "redirect:/api/v1/main";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        positionTypeService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
