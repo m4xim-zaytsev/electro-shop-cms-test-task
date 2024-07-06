@@ -6,15 +6,32 @@ import com.example.store_cms.model.registry.ElectroItem;
 import com.example.store_cms.model.registry.Employee;
 import com.example.store_cms.model.registry.Purchase;
 import com.example.store_cms.service.*;
+import com.example.store_cms.web.request.ShopRequest;
 import com.example.store_cms.web.response.*;
+import com.opencsv.CSVParserBuilder;
+import com.opencsv.CSVReaderBuilder;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
 
+@Slf4j
 @Controller
 @RequestMapping("/api/v1/main")
 @RequiredArgsConstructor
@@ -35,9 +52,27 @@ public class MainPageController {
     private final PositionTypeMapper positionTypeMapper;
     private final PurchaseTypeMapper purchaseTypeMapper;
 
+    private final ScvService scvService;
+
+
     @GetMapping
     public String mainPage() {
         return "index";
+    }
+
+    @PostMapping("/upload-zip")
+    public ResponseEntity<String> uploadZipFile(@RequestParam("file") MultipartFile file) {
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body("File is empty");
+        }
+
+        try {
+            scvService.processZipFile(file);
+            return ResponseEntity.ok("File uploaded and processed successfully");
+        } catch (IOException e) {
+            log.error("Error processing file", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing file: " + e.getMessage());
+        }
     }
 
     @GetMapping("/electrotovary")
@@ -88,10 +123,5 @@ public class MainPageController {
     public List<ShopResponse> getShop(@RequestParam Integer offset, @RequestParam Integer limit) {
         return shopService.getAllShopPageable(offset, limit).getContent().stream()
                 .map(shopMapper::shopToResponse).collect(Collectors.toList());
-    }
-
-    @DeleteMapping("/references/shop/delete/{id}")
-    public void deleteShop(@PathVariable("id") Long id) {
-        shopService.delete(id);
     }
 }

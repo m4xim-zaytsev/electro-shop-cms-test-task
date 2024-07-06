@@ -46,7 +46,7 @@ public class AllEntitiesControllerUseToPostmanOrTest {
     @PostMapping
     public ResponseEntity<EmployeeResponse> create(@RequestBody EmployeeRequest request){
         Employee employee = employeeService.create(employeeMapper.requestToEmployee(request),
-                request.getPositionId(),request.getShopId(),request.getElectroTypeId());
+                request.getPositionId(),request.getShopId());
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(employeeMapper.
                         employeeToResponse(employee));
@@ -77,8 +77,7 @@ public class AllEntitiesControllerUseToPostmanOrTest {
 
     @PostMapping("/electroitem")
     public ResponseEntity<ElectroItemResponse> createElectroItem(@RequestBody ElectroItemRequest request) {
-        ElectroItem electroItem = electroItemService.create(electroItemMapper.requestToElectroItem(request),request.getElectroTypeId(),
-                request.getShopId(),request.getCountLast());
+        ElectroItem electroItem = electroItemService.create(electroItemMapper.requestToElectroItem(request),request.getElectroTypeId());
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(electroItemMapper.electroItemToResponse(electroItem));
     }

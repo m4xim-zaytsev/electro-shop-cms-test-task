@@ -40,18 +40,10 @@ public class ElectroItemServiceImpl  implements ElectroItemService {
     }
 
     @Override
-    public ElectroItem create(ElectroItem electroItem, Long electroTypeId, Long shopId,
-                              Integer countLast) {
+    public ElectroItem create(ElectroItem electroItem, Long electroTypeId) {
         ElectroType electroType = electroTypeService.getById(electroTypeId);
         electroItem.setElectroType(electroType);
         ElectroItem saved = electroItemRepository.save(electroItem);
-
-        ElectroShop electroShop= new ElectroShop();
-        electroShop.setElectroItem(saved);
-        electroShop.setCount(countLast);
-        electroShop.setShop(shopService.getById(shopId));
-        electroShopService.save(electroShop);
-
         return saved;
     }
 

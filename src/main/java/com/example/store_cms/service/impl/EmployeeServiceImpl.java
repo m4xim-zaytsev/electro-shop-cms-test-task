@@ -28,7 +28,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final ShopService shopService;
 
     @Override
-    public Employee create(Employee employee, Long positionTypeId, Long shopId, Long electroTypeId) {
+    public Employee create(Employee employee, Long positionTypeId, Long shopId) {
         PositionType type = positionTypeService.getById(positionTypeId);
         Shop shop =shopService.getById(shopId);
 
@@ -36,10 +36,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setShop(shop);
         Employee savedEmployee = employeeRepository.save(employee);
 
-        ElectroEmployee electroEmployee = new ElectroEmployee();
-        electroEmployee.setEmployee(savedEmployee);
-        electroEmployee.setElectroType(electroTypeService.getById(electroTypeId));
-        electroEmployeeService.save(electroEmployee);
         return savedEmployee;
     }
 

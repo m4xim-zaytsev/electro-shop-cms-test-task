@@ -32,9 +32,6 @@ public class ElectroItemRequest {
     @NotNull(message = "ElectroType ID is mandatory")
     private Long electroTypeId;
 
-    @NotNull(message = "Shop ID is mandatory")
-    private Long shopId;
-
     @NotNull(message = "CountLast is mandatory")
     @Positive(message = "CountLast must be greater than 0")
     private Integer countLast;

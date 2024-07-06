@@ -1,8 +1,4 @@
 spring:
-  sql:
-    init:
-      mode: never
-      data-locations: classpath:sql/init.sql
   web:
     resources:
       static-locations: classpath:/spring-frontend/
