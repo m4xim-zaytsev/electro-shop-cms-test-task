@@ -19,7 +19,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class EmployeeServiceImpl implements EmployeeService {
+public class EmployeeServiceImpl implements EmployeeService ,EmployeeFilter{
 
     private final EmployeeRepository employeeRepository;
     private final PositionTypeService positionTypeService;
@@ -42,6 +42,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> findAll() {
         return employeeRepository.findAll();
+    }
+
+    @Override
+    public List<Employee> findEmployeesWithTotalCountProductsSold(Long positionTypeId) {
+        return employeeRepository.findEmployeesWithTotalCountProductsSold(positionTypeId);
+    }
+
+    @Override
+    public List<Employee> findEmployeesWithTotalPriceProductsSold(Long positionTypeId) {
+        return employeeRepository.findEmployeesWithTotalCountProductsSold(positionTypeId);
+    }
+
+    @Override
+    public Employee getTopBySmartWatch() {
+        return employeeRepository.getTopBySmartWatch();
     }
 
     @Override
