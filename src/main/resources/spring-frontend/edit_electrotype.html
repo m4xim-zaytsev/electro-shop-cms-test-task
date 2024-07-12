@@ -9,7 +9,7 @@
 <body>
 <div class="container mt-5">
   <h2>Редактирование типа электротовара</h2>
-  <form th:action="@{/references/electrotypes/edit/{id}(id=${electroType.id})}" th:object="${electroType}" method="post">
+  <form th:action="@{/references/electro_type/edit/{id}(id=${electroType.id})}" th:object="${electroType}" method="post">
     <div class="form-group">
       <label for="name">Название</label>
       <input type="text" class="form-control" id="name" th:field="*{name}" required>
@@ -34,7 +34,7 @@
         // Perform AJAX delete request
         $.ajax({
           type: "DELETE",
-          url: "/references/electrotypes/delete/" + id,
+          url: "/references/electro_type/delete/" + id,
           success: function () {
             window.location.href = "/api/v1/main"; // Redirect to main page after deletion
           },

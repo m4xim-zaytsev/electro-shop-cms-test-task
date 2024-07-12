@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,8 +30,7 @@
         </ul>
     </nav>
     <main class="content">
-        <h2 id="contentTitle">Магазины</h2>
-
+        <h2 id="contentTitle">Электротовары</h2>
         <div id="subcategoryContainer" style="display: none;">
             <label for="subcategorySelect">Выберите подкатегорию:</label>
             <select id="subcategorySelect" class="form-control">
@@ -41,8 +40,8 @@
                 <option value="shop">Shop</option>
             </select>
         </div>
-
         <div class="table-container">
+            <a id="addButtonLink" class="btn btn-success mb-3">Добавить </a>
             <table class="table table-bordered" id="itemsTable">
                 <thead id="tableHeader">
                 <tr>
@@ -53,6 +52,7 @@
                 </tr>
                 </thead>
                 <tbody id="tableBody">
+                <!-- Rows will be added here dynamically -->
                 </tbody>
             </table>
             <button class="btn btn-secondary" id="loadMoreButton" data-category="electrotovary">Показать еще</button>
@@ -61,20 +61,16 @@
             <div class="import-section d-flex align-items-center ml-3">
                 <h3 class="mb-0 mr-3">Импорт данных из csv-файла</h3>
                 <form action="/api/v1/main/upload-zip" method="post" enctype="multipart/form-data">
-                    <div class="form-group mb-0">
-                        <input type="file" class="form-control-file" name="file">
-                    </div>
+                    <input type="file" class="form-control-file" name="file">
                     <button type="submit" class="btn btn-primary">Загрузить</button>
                 </form>
             </div>
         </div>
-
     </main>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="/scripts/scripts.js"></script>
-
 </body>
 </html>

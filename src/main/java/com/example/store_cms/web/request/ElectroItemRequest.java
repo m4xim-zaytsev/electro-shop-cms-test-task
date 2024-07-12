@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ElectroItemRequest {
+    @NotNull(message = "ID is mandatory")
+    private Long id;
+
     @NotBlank(message = "Name is mandatory")
     private String name;
 
@@ -31,8 +34,4 @@ public class ElectroItemRequest {
 
     @NotNull(message = "ElectroType ID is mandatory")
     private Long electroTypeId;
-
-    @NotNull(message = "CountLast is mandatory")
-    @Positive(message = "CountLast must be greater than 0")
-    private Integer countLast;
 }

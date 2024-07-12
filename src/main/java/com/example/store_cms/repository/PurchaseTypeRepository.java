@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PurchaseTypeRepository extends JpaRepository<PurchaseType, Long>
-        , JpaSpecificationExecutor<PurchaseType> {}
+        , JpaSpecificationExecutor<PurchaseType> {
+    Boolean existsByName(String name);
+}

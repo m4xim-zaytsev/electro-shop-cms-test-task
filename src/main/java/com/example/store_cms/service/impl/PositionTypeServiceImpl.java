@@ -2,6 +2,7 @@ package com.example.store_cms.service.impl;
 
 import com.example.store_cms.exception.BadRequestException;
 import com.example.store_cms.exception.EntityNotFoundException;
+import com.example.store_cms.exception.NotUniqEntityException;
 import com.example.store_cms.model.directory.PositionType;
 import com.example.store_cms.repository.PositionTypeRepository;
 import com.example.store_cms.service.PositionTypeService;
@@ -52,6 +53,8 @@ public class PositionTypeServiceImpl implements PositionTypeService {
 
     @Override
     public PositionType update(Long id, PositionType positionType) {
+        if(positionTypeRepository.existsByName(positionType.getName()))
+            throw new NotUniqEntityException("positionType with this name already exist");
         PositionType existing = getById(id);
         BeanUtils.copyProperties(existing, positionType);
         return positionTypeRepository.save(existing);    }

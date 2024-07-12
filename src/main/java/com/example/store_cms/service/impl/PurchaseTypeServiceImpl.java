@@ -1,6 +1,7 @@
 package com.example.store_cms.service.impl;
 
 import com.example.store_cms.exception.EntityNotFoundException;
+import com.example.store_cms.exception.NotUniqEntityException;
 import com.example.store_cms.model.directory.PurchaseType;
 import com.example.store_cms.repository.PurchaseTypeRepository;
 import com.example.store_cms.service.PurchaseTypeService;
@@ -33,6 +34,8 @@ public class PurchaseTypeServiceImpl implements PurchaseTypeService {
 
     @Override
     public PurchaseType create(PurchaseType purchaseType) {
+        if(purchaseTypeRepository.existsByName(purchaseType.getName()))
+            throw new NotUniqEntityException("purchaseType with this name already exist");
         return purchaseTypeRepository.save(purchaseType);
     }
 
@@ -45,6 +48,8 @@ public class PurchaseTypeServiceImpl implements PurchaseTypeService {
 
     @Override
     public PurchaseType update(Long id, PurchaseType purchaseType) {
+        if(purchaseTypeRepository.existsByName(purchaseType.getName()))
+            throw new NotUniqEntityException("purchaseType with this name already exist");
         PurchaseType existing = getById(id);
         BeanUtils.copyProperties(existing, purchaseType);
         return purchaseTypeRepository.save(existing);

@@ -1,6 +1,7 @@
 package com.example.store_cms.service.impl;
 
 import com.example.store_cms.exception.EntityNotFoundException;
+import com.example.store_cms.exception.NotUniqEntityException;
 import com.example.store_cms.model.directory.ElectroType;
 import com.example.store_cms.repository.ElectroTypeRepository;
 import com.example.store_cms.service.ElectroTypeService;
@@ -33,6 +34,8 @@ public class ElectroTypeServiceImpl implements ElectroTypeService {
 
     @Override
     public ElectroType create(ElectroType electroType) {
+        if(electroTypeRepository.existsByName(electroType.getName()))
+            throw new NotUniqEntityException("electroType with this name already exist");
         return electroTypeRepository.save(electroType);
     }
 
@@ -45,6 +48,8 @@ public class ElectroTypeServiceImpl implements ElectroTypeService {
 
     @Override
     public ElectroType update(Long id, ElectroType electroType) {
+        if(electroTypeRepository.existsByName(electroType.getName()))
+            throw new NotUniqEntityException("electroType with this name already exist");
         ElectroType existing = getById(id);
         BeanUtils.copyProperties(existing, electroType);
         return electroTypeRepository.save(existing);    }

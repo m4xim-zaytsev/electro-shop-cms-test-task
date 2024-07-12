@@ -7,5 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ElectroTypeRepository extends JpaRepository<ElectroType, Long>
-        , JpaSpecificationExecutor<ElectroType> {}
+        , JpaSpecificationExecutor<ElectroType> {
+    Boolean existsByName(String name);
+}
 

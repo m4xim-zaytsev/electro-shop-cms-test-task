@@ -9,7 +9,7 @@
 <body>
 <div class="container mt-5">
     <h2>Редактирование типа должности</h2>
-    <form th:action="@{/references/positiontypes/edit/{id}(id=${positionType.id})}" th:object="${positionType}" method="post">
+    <form th:action="@{/references/position_type/edit/{id}(id=${positionType.id})}" th:object="${positionType}" method="post">
         <div class="form-group">
             <label for="name">Название</label>
             <input type="text" class="form-control" id="name" th:field="*{name}" required>
@@ -34,7 +34,7 @@
                 // Perform AJAX delete request
                 $.ajax({
                     type: "DELETE",
-                    url: "/references/positiontypes/delete/" + id,
+                    url: "/references/position_type/delete/" + id,
                     success: function () {
                         window.location.href = "/api/v1/main"; // Redirect to main page after deletion
                     },

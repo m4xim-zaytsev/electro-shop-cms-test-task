@@ -22,8 +22,8 @@ public class EmployeeRequest {
 
     private String patronymic;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd") // Correct format for HTML <input type="date">
     @NotNull(message = "Birth date is mandatory")
     private Date birthDate;
 
@@ -35,7 +35,4 @@ public class EmployeeRequest {
 
     @NotNull(message = "Position ID is mandatory")
     private Long positionId;
-
-    @NotNull(message = "ElectroType ID is mandatory")
-    private Long electroTypeId;
 }
