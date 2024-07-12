@@ -7,18 +7,13 @@ databaseChangeLog:
             tableName: electro_shop
             columns:
               - column:
-                  name: id
-                  type: BIGSERIAL
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-              - column:
                   name: shop_id
                   type: BIGINT
                   constraints:
                     foreignKeyName: fk_electro_shop_shop
                     references: shop(id)
                     onDelete: CASCADE
+                    nullable: false
               - column:
                   name: electro_item_id
                   type: BIGINT
@@ -26,6 +21,15 @@ databaseChangeLog:
                     foreignKeyName: fk_electro_shop_item
                     references: electro_item(id)
                     onDelete: CASCADE
+                    nullable: false
               - column:
                   name: count
                   type: INT
+            constraints:
+              primaryKey:
+                - shop_id
+                - electro_item_id
+        - addUniqueConstraint:
+            columnNames: shop_id, electro_item_id
+            tableName: electro_shop
+            constraintName: uq_electro_shop

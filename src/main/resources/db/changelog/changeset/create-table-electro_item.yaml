@@ -36,4 +36,3 @@ databaseChangeLog:
                     foreignKeyName: fk_electro_item_type
                     references: electro_type(id)
                     onDelete: CASCADE
-

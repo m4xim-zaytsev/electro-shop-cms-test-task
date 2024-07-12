@@ -1,10 +1,9 @@
 package com.example.store_cms.service;
 
 import com.example.store_cms.mapper.*;
-import com.example.store_cms.model.directory.ElectroType;
-import com.example.store_cms.model.directory.PositionType;
-import com.example.store_cms.model.directory.PurchaseType;
-import com.example.store_cms.model.directory.Shop;
+import com.example.store_cms.model.directory.*;
+import com.example.store_cms.model.key.ElectroEmployeeId;
+import com.example.store_cms.model.key.ElectroShopId;
 import com.example.store_cms.web.request.*;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
@@ -147,14 +146,16 @@ public class ScvService {
             }
 
             Long employeeId = Long.parseLong(record[0].trim());
-            Long etype = Long.parseLong(record[1].trim());
+            Long electroTypeId = Long.parseLong(record[1].trim());
 
             ElectroEmployeeRequest request = new ElectroEmployeeRequest();
-            request.setElectroTypeId(etype);
             request.setEmployeeId(employeeId);
+            request.setElectroTypeId(electroTypeId);
 
+            ElectroEmployee electroEmployee = electroEmployeeMapper.requestToElectroEmployee(request);
+            electroEmployee.setId(new ElectroEmployeeId(employeeId, electroTypeId));
 
-            electroEmployeeService.save(electroEmployeeMapper.requestToElectroEmployee(request));
+            electroEmployeeService.save(electroEmployee);
         }
     }
 
@@ -175,10 +176,13 @@ public class ScvService {
             request.setElectroItemId(electroItemId);
             request.setCount(count);
 
+            ElectroShop electroShop = electroShopMapper.requestToElectroShop(request);
+            electroShop.setId(new ElectroShopId(shopId, electroItemId));
 
-            electroShopService.save(electroShopMapper.requestToElectroShop(request));
+            electroShopService.save(electroShop);
         }
     }
+
 
     private void processPurchase(List<String[]> records) throws ParseException {
         boolean isFirstLine = true;

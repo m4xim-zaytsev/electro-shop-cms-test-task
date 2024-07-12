@@ -12,6 +12,9 @@ public interface ElectroShopMapper {
 
     @Mappings({
             @Mapping(source = "shopId", target = "shop.id"),
-            @Mapping(source = "electroItemId", target = "electroItem.id")
+            @Mapping(source = "electroItemId", target = "electroItem.id"),
+            @Mapping(source = "shopId", target = "id.shopId"),
+            @Mapping(source = "electroItemId", target = "id.electroItemId")
     })
-    ElectroShop requestToElectroShop(ElectroShopRequest request);}
+    ElectroShop requestToElectroShop(ElectroShopRequest request);
+}

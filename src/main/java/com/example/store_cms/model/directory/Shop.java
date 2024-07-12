@@ -10,9 +10,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +23,7 @@ public class Shop {
 
     private String address;
 
-
-    @OneToMany(mappedBy = "shop",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<ElectroShop> electroShops;
 

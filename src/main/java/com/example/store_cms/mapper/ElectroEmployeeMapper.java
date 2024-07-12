@@ -11,6 +11,8 @@ import org.mapstruct.ReportingPolicy;
 public interface ElectroEmployeeMapper {
 
     @Mappings({
+            @Mapping(source = "employeeId", target = "id.employeeId"),
+            @Mapping(source = "electroTypeId", target = "id.electroTypeId"),
             @Mapping(source = "employeeId", target = "employee.id"),
             @Mapping(source = "electroTypeId", target = "electroType.id")
     })
