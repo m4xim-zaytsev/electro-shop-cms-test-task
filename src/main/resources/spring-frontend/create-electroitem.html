@@ -9,6 +9,7 @@
 <div class="container">
     <h2>Create ElectroItem</h2>
     <form th:action="@{/electrotovary/create}" th:object="${electroItemRequest}" method="post">
+        <!-- Form fields with Thymeleaf binding -->
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="Enter item name">

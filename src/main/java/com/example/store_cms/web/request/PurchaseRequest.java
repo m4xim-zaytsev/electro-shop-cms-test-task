@@ -13,6 +13,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PurchaseRequest {
+    private Long id;
+
     @NotNull(message = "ElectroItem ID is mandatory")
     private Long electroItemId;
     @NotNull(message = "Employee ID is mandatory")

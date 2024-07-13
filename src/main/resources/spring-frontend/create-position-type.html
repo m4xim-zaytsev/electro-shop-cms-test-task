@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Position Type</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
+<div class="container mt-5">
     <h2>Create Position Type</h2>
     <form th:action="@{/references/position_type/create}" th:object="${positionTypeRequest}" method="post">
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="Enter name">
+            <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="Enter name" required>
             <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert alert-danger"></div>
         </div>
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>

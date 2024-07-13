@@ -12,11 +12,12 @@
     <form th:action="@{/references/position_type/edit/{id}(id=${positionType.id})}" th:object="${positionType}" method="post">
         <div class="form-group">
             <label for="name">Название</label>
-            <input type="text" class="form-control" id="name" th:field="*{name}" required>
+            <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="Enter name" required>
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert alert-danger"></div>
         </div>
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
         <button type="submit" class="btn btn-primary">Сохранить</button>
         <a th:href="@{/}" class="btn btn-secondary">Отмена</a>
-
         <!-- Delete button -->
         <button type="button" class="btn btn-danger" onclick="deletePositionType()">Удалить</button>
     </form>

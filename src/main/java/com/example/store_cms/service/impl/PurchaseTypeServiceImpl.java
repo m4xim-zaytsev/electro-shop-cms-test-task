@@ -60,4 +60,9 @@ public class PurchaseTypeServiceImpl implements PurchaseTypeService {
         purchaseTypeRepository.deleteById(id);
 
     }
+
+    @Override
+    public Boolean existByName(String name) {
+        return purchaseTypeRepository.existsByName(name.trim());
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.store_cms.web.controller;
 
+import com.example.store_cms.mapper.PurchaseMapper;
 import com.example.store_cms.model.registry.Purchase;
 import com.example.store_cms.service.*;
 import com.example.store_cms.web.request.PurchaseRequest;
@@ -25,7 +26,7 @@ public class PurchaseController {
     private final EmployeeService employeeService;
     private final ShopService shopService;
     private final PurchaseTypeService purchaseTypeService;
-
+    private final PurchaseMapper purchaseMapper;
     @GetMapping("/create")
     public String showCreateForm(Model model) {
         model.addAttribute("purchaseRequest", new PurchaseRequest());
@@ -45,9 +46,9 @@ public class PurchaseController {
             model.addAttribute("purchaseTypes", purchaseTypeService.findAll());
             return "create-purchase";
         }
-        Purchase purchase = new Purchase();
-        purchase.setPurchaseDate(purchaseRequest.getPurchaseDate());
-        purchaseService.create(purchase, purchaseRequest.getElectroItemId(), purchaseRequest.getEmployeeId(), purchaseRequest.getPurchaseTypeId(), purchaseRequest.getShopId());
+
+        purchaseService.create(purchaseMapper.requestToPurchase(purchaseRequest),
+                purchaseRequest.getElectroItemId(), purchaseRequest.getEmployeeId(), purchaseRequest.getPurchaseTypeId(), purchaseRequest.getShopId());
         return "redirect:/api/v1/main";
     }
 
@@ -61,7 +62,8 @@ public class PurchaseController {
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {
         Purchase purchase = purchaseService.getById(id);
-        model.addAttribute("purchase", purchase);
+        PurchaseRequest request = new PurchaseRequest();
+        model.addAttribute("purchase", purchaseMapper.purchaseToRequest(purchase));
         model.addAttribute("electroItems", electroItemService.findAll());
         model.addAttribute("employees", employeeService.findAll());
         model.addAttribute("shops", shopService.findAll());
@@ -70,8 +72,18 @@ public class PurchaseController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editPurchase(@PathVariable("id") Long id, @ModelAttribute("purchase") Purchase purchase) {
-        purchaseService.update(id, purchase, purchase.getElectroItem().getId(), purchase.getEmployee().getId(), purchase.getPurchaseType().getId(), purchase.getShop().getId());
+    public String editPurchase(@PathVariable("id") Long id, @ModelAttribute("purchase") @Valid PurchaseRequest purchase
+            , BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("electroItems", electroItemService.findAll());
+            model.addAttribute("employees", employeeService.findAll());
+            model.addAttribute("shops", shopService.findAll());
+            model.addAttribute("purchaseTypes", purchaseTypeService.findAll());
+            return "edit_purchases";
+        }
+        purchaseService.update(id, purchaseMapper.requestToPurchase(purchase),
+                purchase.getElectroItemId(), purchase.getEmployeeId(), purchase.getPurchaseTypeId()
+                , purchase.getShopId());
         return "redirect:/api/v1/main";
     }
 

@@ -28,6 +28,9 @@ public class ElectroTypeController {
 
     @PostMapping("/create")
     public String createElectroType(@ModelAttribute("electroTypeRequest") @Valid ElectroTypeRequest electroTypeRequest, BindingResult result) {
+        if (electroTypeService.existByName(electroTypeRequest.getName())) {
+            result.rejectValue("name", "error.electroTypeRequest", "ElectroType with this name already exists.");
+        }
         if (result.hasErrors()) {
             return "create-electrotype-form";
         }
@@ -38,13 +41,19 @@ public class ElectroTypeController {
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {
         ElectroType electroType = electroTypeService.getById(id);
-        model.addAttribute("electroType", electroType);
+        model.addAttribute("electroType", electroTypeMapper.electroTypeToRequest(electroType));
         return "edit_electrotype";
     }
 
     @PostMapping("/edit/{id}")
-    public String editElectroType(@PathVariable("id") Long id, @ModelAttribute("electroType") ElectroTypeRequest electroType) {
-        electroTypeService.update(id, electroTypeMapper.requestToElectroType(electroType));
+    public String editElectroType(@PathVariable("id") Long id, @ModelAttribute("electroType") @Valid ElectroTypeRequest electroTypeRequest, BindingResult result) {
+        if (electroTypeService.existByName(electroTypeRequest.getName())) {
+            result.rejectValue("name", "error.electroTypeRequest", "ElectroType with this name already exists.");
+        }
+        if (result.hasErrors()) {
+            return "edit_electrotype";
+        }
+        electroTypeService.update(id, electroTypeMapper.requestToElectroType(electroTypeRequest));
         return "redirect:/api/v1/main";
     }
 

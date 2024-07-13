@@ -9,18 +9,21 @@
 <body>
 <div class="container mt-5">
   <h2>Редактирование товара</h2>
-  <form th:action="@{/electrotovary/edit/{id}(id=${electroItem.id})}" th:object="${electroItem}" method="post">
+  <form th:action="@{/electrotovary/edit/{id}(id=${electroItemRequest.id})}" th:object="${electroItemRequest}" method="post">
     <div class="form-group">
       <label for="name">Наименование</label>
       <input type="text" class="form-control" id="name" th:field="*{name}" required>
+      <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></small>
     </div>
     <div class="form-group">
       <label for="price">Цена</label>
       <input type="number" class="form-control" id="price" th:field="*{price}" required>
+      <small th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger"></small>
     </div>
     <div class="form-group">
       <label for="count">Количество</label>
       <input type="number" class="form-control" id="count" th:field="*{count}" required>
+      <small th:if="${#fields.hasErrors('count')}" th:errors="*{count}" class="text-danger"></small>
     </div>
     <div class="form-group">
       <label for="archive">Архивировано</label>
@@ -29,10 +32,11 @@
     <div class="form-group">
       <label for="description">Описание</label>
       <textarea class="form-control" id="description" th:field="*{description}"></textarea>
+      <small th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></small>
     </div>
     <div class="form-group">
       <label for="electroTypeId">Тип товара</label>
-      <select class="form-control" id="electroTypeId" th:field="*{electroType.id}" required>
+      <select class="form-control" id="electroTypeId" th:field="*{electroTypeId}" required>
         <option th:each="electroType : ${electroTypes}"
                 th:value="${electroType.id}"
                 th:text="${electroType.name}">
@@ -54,7 +58,7 @@
 <script th:inline="javascript">
   function deleteElectroItem() {
     if (confirm("Вы уверены, что хотите удалить товар?")) {
-      var id = /*[[${electroItem.id}]]*/ null; // Get electroItem id from Thymeleaf model
+      var id = /*[[${electroItemRequest.id}]]*/ null; // Get electroItemRequest id from Thymeleaf model
       if (id) {
         // Perform AJAX delete request
         $.ajax({

@@ -13,4 +13,5 @@ public interface PositionTypeService {
     PositionType findByName(String name);
     void delete(Long id);
     List<PositionType> findAll();
+    Boolean existByName(String name);
 }

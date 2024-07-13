@@ -22,4 +22,10 @@ public interface PurchaseMapper {
     @Mapping(source = "shopId", target = "shop.id")
     @Mapping(source = "purchaseTypeId", target = "purchaseType.id")
     Purchase requestToPurchase(PurchaseRequest request);
+
+    @Mapping(source = "electroItem.id", target = "electroItemId")
+    @Mapping(source = "employee.id", target = "employeeId")
+    @Mapping(source = "shop.id", target = "shopId")
+    @Mapping(source = "purchaseType.id", target = "purchaseTypeId")
+    PurchaseRequest purchaseToRequest(Purchase purchase);
 }

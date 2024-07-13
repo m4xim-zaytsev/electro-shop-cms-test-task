@@ -22,6 +22,8 @@
         <div class="form-group">
             <label for="patronymic">Patronymic</label>
             <input type="text" class="form-control" id="patronymic" th:field="*{patronymic}" placeholder="Enter patronymic (optional)">
+            <div th:if="${#fields.hasErrors('patronymic')}" th:errors="*{patronymic}" class="alert alert-danger"></div>
+
         </div>
         <div class="form-group">
             <label for="birthDate">Birth Date</label>
@@ -39,18 +41,16 @@
         <div class="form-group">
             <label for="shopId">Shop</label>
             <select class="form-control" id="shopId" th:field="*{shopId}">
-                <th:block th:each="shop : ${shops}">
-                    <option th:value="${shop.id}" th:text="${shop.name}"></option>
-                </th:block>
+                <option th:each="shop : ${shops}" th:value="${shop.id}" th:text="${shop.name}"></option>
             </select>
+            <div th:if="${#fields.hasErrors('shopId')}" th:errors="*{shopId}" class="alert alert-danger"></div>
         </div>
         <div class="form-group">
             <label for="positionId">Position</label>
             <select class="form-control" id="positionId" th:field="*{positionId}">
-                <th:block th:each="position : ${positionTypes}">
-                    <option th:value="${position.id}" th:text="${position.name}"></option>
-                </th:block>
+                <option th:each="position : ${positionTypes}" th:value="${position.id}" th:text="${position.name}"></option>
             </select>
+            <div th:if="${#fields.hasErrors('positionId')}" th:errors="*{positionId}" class="alert alert-danger"></div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

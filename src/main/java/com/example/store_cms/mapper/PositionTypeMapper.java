@@ -10,6 +10,6 @@ import org.mapstruct.ReportingPolicy;
 public interface PositionTypeMapper {
 
     PositionTypeResponse positionTypeToResponse(PositionType positionType);
-
+    PositionTypeRequest positionTypeToRequest(PositionType positionType);
     PositionType requestToPositionType(PositionTypeRequest request);
 }

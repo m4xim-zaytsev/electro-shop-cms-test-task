@@ -12,43 +12,48 @@
   <form th:action="@{/pokupki/edit/{id}(id=${purchase.id})}" th:object="${purchase}" method="post">
     <div class="form-group">
       <label for="electroItem">Электротовар</label>
-      <select class="form-control" id="electroItem" th:field="*{electroItem.id}" required>
+      <select class="form-control" id="electroItem" th:field="*{electroItemId}" required>
         <option th:each="electroItem : ${electroItems}"
                 th:value="${electroItem.id}"
                 th:text="${electroItem.name}">
         </option>
       </select>
+      <small class="text-danger" th:if="${#fields.hasErrors('electroItemId')}" th:errors="*{electroItemId}"></small>
     </div>
     <div class="form-group">
       <label for="employee">Сотрудник</label>
-      <select class="form-control" id="employee" th:field="*{employee.id}" required>
+      <select class="form-control" id="employee" th:field="*{employeeId}" required>
         <option th:each="employee : ${employees}"
                 th:value="${employee.id}"
                 th:text="${employee.fullName}">
         </option>
       </select>
+      <small class="text-danger" th:if="${#fields.hasErrors('employeeId')}" th:errors="*{employeeId}"></small>
     </div>
     <div class="form-group">
       <label for="shop">Магазин</label>
-      <select class="form-control" id="shop" th:field="*{shop.id}" required>
+      <select class="form-control" id="shop" th:field="*{shopId}" required>
         <option th:each="shop : ${shops}"
                 th:value="${shop.id}"
                 th:text="${shop.name}">
         </option>
       </select>
+      <small class="text-danger" th:if="${#fields.hasErrors('shopId')}" th:errors="*{shopId}"></small>
     </div>
     <div class="form-group">
       <label for="purchaseType">Тип покупки</label>
-      <select class="form-control" id="purchaseType" th:field="*{purchaseType.id}" required>
+      <select class="form-control" id="purchaseType" th:field="*{purchaseTypeId}" required>
         <option th:each="purchaseType : ${purchaseTypes}"
                 th:value="${purchaseType.id}"
                 th:text="${purchaseType.name}">
         </option>
       </select>
+      <small class="text-danger" th:if="${#fields.hasErrors('purchaseTypeId')}" th:errors="*{purchaseTypeId}"></small>
     </div>
     <div class="form-group">
       <label for="purchaseDate">Дата покупки</label>
       <input type="datetime-local" class="form-control" id="purchaseDate" th:field="*{purchaseDate}" required>
+      <small class="text-danger" th:if="${#fields.hasErrors('purchaseDate')}" th:errors="*{purchaseDate}"></small>
     </div>
     <button type="submit" class="btn btn-primary">Сохранить</button>
     <a th:href="@{/}" class="btn btn-secondary">Отмена</a>

@@ -12,4 +12,6 @@ public interface ShopService {
     Shop update(Long id, Shop shop);
     void delete(Long id);
     List<Shop> findAll();
+    Boolean existByNameAndAddress(String name,String address);
+
 }

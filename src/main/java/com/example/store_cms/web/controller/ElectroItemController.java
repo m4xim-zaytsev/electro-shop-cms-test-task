@@ -37,6 +37,7 @@ public class ElectroItemController {
     @PostMapping("/create")
     public String createElectroItem(@ModelAttribute("electroItemRequest") @Valid ElectroItemRequest electroItemRequest, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            result.getAllErrors().forEach(objectError -> System.out.println(objectError.getDefaultMessage()));
             model.addAttribute("electroTypes", electroTypeService.findAll());
             return "create-electroitem";
         }
@@ -47,15 +48,22 @@ public class ElectroItemController {
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {
         ElectroItem electroItem = electroItemService.getById(id);
-        model.addAttribute("electroItem", electroItem);
+        ElectroItemRequest electroItemRequest = new ElectroItemRequest();
+
+        model.addAttribute("electroItemRequest", electroItemMapper.electroItemToRequest(electroItem));
         model.addAttribute("electroTypes", electroTypeService.findAll());
         return "edit_electroitem";
     }
 
     @PostMapping("/edit/{id}")
     public String updateElectroItem(@PathVariable("id") Long id,
-                                    @ModelAttribute("electroItem") ElectroItem updatedElectroItem) {
-        electroItemService.update(id, updatedElectroItem, updatedElectroItem.getElectroType().getId());
+                                    @Valid @ModelAttribute("electroItemRequest") ElectroItemRequest updatedElectroItemRequest,
+                                    BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("electroTypes", electroTypeService.findAll());
+            return "edit_electroitem";
+        }
+        electroItemService.update(id, electroItemMapper.requestToElectroItem(updatedElectroItemRequest), updatedElectroItemRequest.getElectroTypeId());
         return "redirect:/api/v1/main";
     }
 

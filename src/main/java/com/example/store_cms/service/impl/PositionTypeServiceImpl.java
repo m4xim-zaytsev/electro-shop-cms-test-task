@@ -70,4 +70,9 @@ public class PositionTypeServiceImpl implements PositionTypeService {
     public List<PositionType> findAll() {
         return positionTypeRepository.findAll();
     }
+
+    @Override
+    public Boolean existByName(String name) {
+        return positionTypeRepository.existsByName(name.trim());
+    }
 }

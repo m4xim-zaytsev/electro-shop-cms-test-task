@@ -59,4 +59,9 @@ public class ElectroTypeServiceImpl implements ElectroTypeService {
         electroTypeRepository.deleteById(id);
 
     }
+
+    @Override
+    public Boolean existByName(String name) {
+        return electroTypeRepository.existsByName(name.trim());
+    }
 }

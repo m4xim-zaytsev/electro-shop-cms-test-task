@@ -12,38 +12,47 @@
         <div class="form-group">
             <label for="electroItemId">Electro Item</label>
             <select class="form-control" id="electroItemId" th:field="*{electroItemId}">
+                <option value="">Select Electro Item</option>
                 <th:block th:each="item : ${electroItems}">
                     <option th:value="${item.id}" th:text="${item.name}"></option>
                 </th:block>
             </select>
+            <small class="text-danger" th:if="${#fields.hasErrors('electroItemId')}" th:errors="*{electroItemId}"></small>
         </div>
         <div class="form-group">
             <label for="employeeId">Employee</label>
             <select class="form-control" id="employeeId" th:field="*{employeeId}">
+                <option value="">Select Employee</option>
                 <th:block th:each="employee : ${employees}">
                     <option th:value="${employee.id}" th:text="${employee.lastName} + ', ' + ${employee.firstName}"></option>
                 </th:block>
             </select>
+            <small class="text-danger" th:if="${#fields.hasErrors('employeeId')}" th:errors="*{employeeId}"></small>
         </div>
         <div class="form-group">
             <label for="shopId">Shop</label>
             <select class="form-control" id="shopId" th:field="*{shopId}">
+                <option value="">Select Shop</option>
                 <th:block th:each="shop : ${shops}">
                     <option th:value="${shop.id}" th:text="${shop.name}"></option>
                 </th:block>
             </select>
+            <small class="text-danger" th:if="${#fields.hasErrors('shopId')}" th:errors="*{shopId}"></small>
         </div>
         <div class="form-group">
             <label for="purchaseTypeId">Purchase Type</label>
             <select class="form-control" id="purchaseTypeId" th:field="*{purchaseTypeId}">
+                <option value="">Select Purchase Type</option>
                 <th:block th:each="type : ${purchaseTypes}">
                     <option th:value="${type.id}" th:text="${type.name}"></option>
                 </th:block>
             </select>
+            <small class="text-danger" th:if="${#fields.hasErrors('purchaseTypeId')}" th:errors="*{purchaseTypeId}"></small>
         </div>
         <div class="form-group">
             <label for="purchaseDate">Purchase Date</label>
             <input type="datetime-local" class="form-control" id="purchaseDate" th:field="*{purchaseDate}">
+            <small class="text-danger" th:if="${#fields.hasErrors('purchaseDate')}" th:errors="*{purchaseDate}"></small>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

@@ -1,66 +1,83 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Редактирование сотрудника</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Edit Employee</title>
+    <!-- Bootstrap CSS for styling (optional) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container mt-5">
-    <h2>Редактирование сотрудника</h2>
-    <form th:action="@{/sotrudniki/edit/{id}(id=${employee.id})}" th:object="${employee}" method="post">
+<div class="container">
+    <h2>Edit Employee</h2>
+    <form th:action="@{/edit/{id}(id=${employeeRequest.id})}" th:object="${employeeRequest}" method="post">
         <div class="form-group">
-            <label for="firstName">Имя</label>
-            <input type="text" class="form-control" id="firstName" th:field="*{firstName}">
+            <label>Last Name:</label>
+            <input type="text" th:field="*{lastName}" class="form-control" required>
+            <small th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="text-danger"></small>
         </div>
         <div class="form-group">
-            <label for="lastName">Фамилия</label>
-            <input type="text" class="form-control" id="lastName" th:field="*{lastName}">
+            <label>First Name:</label>
+            <input type="text" th:field="*{firstName}" class="form-control" required>
+            <small th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-danger"></small>
         </div>
         <div class="form-group">
-            <label for="positionType">Тип должности</label>
-            <select class="form-control" id="positionType" th:field="*{positionType.name}">
-                <option th:each="positionType : ${positionTypes}"
-                        th:value="${positionType.name}"
-                        th:text="${positionType.name}">
-                </option>
+            <label>Patronymic:</label>
+            <input type="text" th:field="*{patronymic}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Birth Date:</label>
+            <input type="date" th:field="*{birthDate}" class="form-control" required>
+            <small th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}" class="text-danger"></small>
+        </div>
+        <div class="form-group">
+            <label>Gender:</label>
+            <select th:field="*{gender}" class="form-control" required>
+                <option th:value="true">Male</option>
+                <option th:value="false">Female</option>
             </select>
+            <small th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" class="text-danger"></small>
         </div>
         <div class="form-group">
-            <label for="shop">Магазин</label>
-            <select class="form-control" id="shop" th:field="*{shop.id}">
-                <option th:each="shop : ${shops}"
-                        th:value="${shop.id}"
-                        th:text="${shop.name}">
-                </option>
+            <label>Shop:</label>
+            <select th:field="*{shopId}" class="form-control" required>
+                <option th:each="shop : ${shops}" th:value="${shop.id}" th:text="${shop.name}"></option>
             </select>
+            <small th:if="${#fields.hasErrors('shopId')}" th:errors="*{shopId}" class="text-danger"></small>
         </div>
-        <button type="submit" class="btn btn-primary">Сохранить</button>
-        <a th:href="@{/}" class="btn btn-secondary">Отмена</a>
-
-        <!-- Delete button -->
+        <div class="form-group">
+            <label>Position Type:</label>
+            <select th:field="*{positionId}" class="form-control" required>
+                <option th:each="position : ${positionTypes}" th:value="${position.id}" th:text="${position.name}"></option>
+            </select>
+            <small th:if="${#fields.hasErrors('positionId')}" th:errors="*{positionId}" class="text-danger"></small>
+        </div>
+        <!-- Кнопки "Отменить" и "Удалить" -->
+        <a th:href="@{/api/v1/main}" class="btn btn-secondary">Отменить</a>
         <button type="button" class="btn btn-danger" onclick="deleteEmployee()">Удалить</button>
+        <button type="submit" class="btn btn-primary">Update Employee</button>
     </form>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<!-- Script for handling delete -->
+<!-- JavaScript для удаления сотрудника -->
 <script th:inline="javascript">
     function deleteEmployee() {
         if (confirm("Вы уверены, что хотите удалить сотрудника?")) {
-            var id = /*[[${employee.id}]]*/ null; // Get employee id from Thymeleaf model
+            var id = /*[[${employeeRequest.id}]]*/ null; // Получаем id сотрудника из модели Thymeleaf
             if (id) {
-                // Perform AJAX delete request
+                // Выполняем AJAX-запрос на удаление
                 $.ajax({
                     type: "DELETE",
                     url: "/sotrudniki/delete/" + id,
                     success: function () {
+                        // Перенаправляем пользователя после успешного удаления
                         window.location.href = "/api/v1/main";
                     },
                     error: function () {
+                        // Обрабатываем ошибку удаления
                         alert("Ошибка при удалении сотрудника.");
                     }
                 });
@@ -68,5 +85,6 @@
         }
     }
 </script>
+
 </body>
 </html>

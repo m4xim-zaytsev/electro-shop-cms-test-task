@@ -28,6 +28,9 @@ public class ShopController {
 
     @PostMapping("/create")
     public String createShop(@ModelAttribute("shopRequest") @Valid ShopRequest shopRequest, BindingResult result) {
+        if (shopService.existByNameAndAddress(shopRequest.getName(),shopRequest.getAddress())) {
+            result.rejectValue("name", "error.shopRequest", "Shop with this name adn address already exists.");
+        }
         if (result.hasErrors()) {
             return "create-shop";
         }
@@ -38,13 +41,21 @@ public class ShopController {
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {
         Shop shop = shopService.getById(id);
-        model.addAttribute("shop", shop);
+        model.addAttribute("shop", shopMapper.shopToRequest(shop));
         return "edit_shop";
     }
 
     @PostMapping("/edit/{id}")
-    public String editShop(@PathVariable("id") Long id, @ModelAttribute("shop") ShopRequest shop) {
-        shopService.update(id, shopMapper.requestToShop(shop));
+    public String editShop(@PathVariable("id") Long id, @ModelAttribute("shop") @Valid ShopRequest shopRequest, BindingResult result) {
+        if (shopService.existByNameAndAddress(shopRequest.getName(),shopRequest.getAddress())) {
+            result.rejectValue("name", "error.shopRequest", "Shop with this name already exists.");
+            result.rejectValue("address", "error.shopRequest", "Shop with this address already exists.");
+
+        }
+        if (result.hasErrors()) {
+            return "edit_shop";
+        }
+        shopService.update(id, shopMapper.requestToShop(shopRequest));
         return "redirect:/api/v1/main";
     }
 

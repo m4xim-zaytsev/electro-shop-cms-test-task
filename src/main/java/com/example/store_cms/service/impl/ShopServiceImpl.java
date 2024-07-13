@@ -53,4 +53,11 @@ public class ShopServiceImpl implements ShopService {
     public List<Shop> findAll() {
         return shopRepository.findAll();
     }
+
+    @Override
+    public Boolean existByNameAndAddress(String name, String address) {
+        return shopRepository.existsByNameAndAddress(name.trim(),address.trim());
+    }
+
+
 }

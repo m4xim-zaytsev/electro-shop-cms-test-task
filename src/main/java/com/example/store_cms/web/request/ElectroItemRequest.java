@@ -1,9 +1,7 @@
 package com.example.store_cms.web.request;
 
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,10 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ElectroItemRequest {
-    @NotNull(message = "ID is mandatory")
     private Long id;
 
     @NotBlank(message = "Name is mandatory")
+    @Size(max = 150)
     private String name;
 
     @NotNull(message = "Price is mandatory")
@@ -23,7 +21,7 @@ public class ElectroItemRequest {
     private Long price;
 
     @NotNull(message = "Count is mandatory")
-    @Positive(message = "Count must be greater than 0")
+    @PositiveOrZero(message = "Count must be greater than 0")
     private Integer count;
 
     @NotNull(message = "Archive status is mandatory")

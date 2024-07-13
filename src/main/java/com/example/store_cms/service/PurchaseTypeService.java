@@ -12,4 +12,6 @@ public interface PurchaseTypeService {
     PurchaseType getById(Long id);
     PurchaseType update(Long id, PurchaseType purchaseType);
     void delete(Long id);
+    Boolean existByName(String name);
+
 }

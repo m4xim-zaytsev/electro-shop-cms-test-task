@@ -15,4 +15,7 @@ public interface ElectroItemMapper {
 
     @Mapping(source = "electroTypeId", target = "electroType.id")
     ElectroItem requestToElectroItem(ElectroItemRequest request);
+
+    @Mapping(source = "electroType.id", target = "electroTypeId")
+    ElectroItemRequest electroItemToRequest(ElectroItem electroItem);
 }

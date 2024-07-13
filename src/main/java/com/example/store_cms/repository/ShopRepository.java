@@ -7,5 +7,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ShopRepository extends JpaRepository<Shop, Long>
-        , JpaSpecificationExecutor<Shop> {}
+        , JpaSpecificationExecutor<Shop> {
+    Boolean existsByName(String name);
+    Boolean existsByNameAndAddress(String name, String address);
+}
 

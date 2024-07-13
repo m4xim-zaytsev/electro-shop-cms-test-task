@@ -10,6 +10,6 @@ import org.mapstruct.ReportingPolicy;
 public interface ShopMapper {
 
     ShopResponse shopToResponse(Shop shop);
-
+    ShopRequest shopToRequest(Shop shop);
     Shop requestToShop(ShopRequest request);
 }

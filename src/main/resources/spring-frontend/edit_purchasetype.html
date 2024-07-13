@@ -12,11 +12,11 @@
     <form th:action="@{/references/purchase_type/edit/{id}(id=${purchaseType.id})}" th:object="${purchaseType}" method="post">
         <div class="form-group">
             <label for="name">Название</label>
-            <input type="text" class="form-control" id="name" th:field="*{name}" required>
+            <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="Enter purchase type name" required>
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert alert-danger"></div>
         </div>
         <button type="submit" class="btn btn-primary">Сохранить</button>
         <a th:href="@{/}" class="btn btn-secondary">Отмена</a>
-
         <!-- Delete button -->
         <button type="button" class="btn btn-danger" onclick="deletePurchaseType()">Удалить</button>
     </form>

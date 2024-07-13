@@ -12,5 +12,6 @@ public interface ElectroTypeService {
     ElectroType getById(Long id);
     ElectroType update(Long id, ElectroType electroType);
     void delete(Long id);
+    Boolean existByName(String name);
 
 }

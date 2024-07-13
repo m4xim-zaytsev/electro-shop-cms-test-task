@@ -3,6 +3,7 @@ package com.example.store_cms.web.request;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,16 +15,20 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmployeeRequest {
+    private Long id;
+
     @NotBlank(message = "Last name is mandatory")
+    @Size(max = 100)
     private String lastName;
 
     @NotBlank(message = "First name is mandatory")
+    @Size(max = 100)
     private String firstName;
-
+    @Size(max = 100)
     private String patronymic;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd") // Correct format for HTML <input type="date">
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "Birth date is mandatory")
     private Date birthDate;
 

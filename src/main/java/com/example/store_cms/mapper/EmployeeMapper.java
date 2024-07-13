@@ -17,4 +17,8 @@ public interface EmployeeMapper {
     @Mapping(source = "shopId", target = "shop.id")
     @Mapping(source = "positionId", target = "positionType.id")
     Employee requestToEmployee(EmployeeRequest request);
+
+    @Mapping(source = "shop.id", target = "shopId")
+    @Mapping(source = "positionType.id", target = "positionId")
+    EmployeeRequest employeeToRequest(Employee employee);
 }

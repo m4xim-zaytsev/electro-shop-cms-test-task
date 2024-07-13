@@ -28,6 +28,9 @@ public class PositionTypeController {
 
     @PostMapping("/create")
     public String createPositionType(@ModelAttribute("positionTypeRequest") @Valid PositionTypeRequest positionTypeRequest, BindingResult result) {
+        if (positionTypeService.existByName(positionTypeRequest.getName())) {
+            result.rejectValue("name", "error.positionTypeRequest", "PositionType with this name already exists.");
+        }
         if (result.hasErrors()) {
             return "create-position-type";
         }
@@ -38,13 +41,20 @@ public class PositionTypeController {
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {
         PositionType positionType = positionTypeService.getById(id);
-        model.addAttribute("positionType", positionType);
+        model.addAttribute("positionType", positionTypeMapper.positionTypeToRequest(positionType));
         return "edit_positiontype";
     }
 
     @PostMapping("/edit/{id}")
-    public String editPositionType(@PathVariable("id") Long id, @ModelAttribute("positionType") PositionTypeRequest positionType) {
+    public String editPositionType(@PathVariable("id") Long id, @ModelAttribute("positionType") @Valid PositionTypeRequest positionType, BindingResult bindingResult, Model model) {
+        if (positionTypeService.existByName(positionType.getName())) {
+            bindingResult.rejectValue("name", "error.positionTypeRequest", "PositionType with this name already exists.");
+        }
+        if (bindingResult.hasErrors()) {
+            return "edit_positiontype";
+        }
         positionTypeService.update(id, positionTypeMapper.requestToPositionType(positionType));
+
         return "redirect:/api/v1/main";
     }
 

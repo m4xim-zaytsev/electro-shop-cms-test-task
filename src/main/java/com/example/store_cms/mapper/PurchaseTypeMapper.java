@@ -10,6 +10,7 @@ import org.mapstruct.ReportingPolicy;
 public interface PurchaseTypeMapper {
 
     PurchaseTypeResponse purchaseTypeToResponse(PurchaseType purchaseType);
-
     PurchaseType requestToPurchaseType(PurchaseTypeRequest request);
+    PurchaseTypeRequest purchaseTypeToRequest(PurchaseType purchaseType);
+
 }

@@ -313,8 +313,8 @@ public class ScvService {
                 isFirstLine = false;
                 continue;
             }
-            String name = record[2].trim();
-            String address = record[1].trim();
+            String name = record[1].trim();
+            String address = record[2].trim();
             Shop shop = new Shop();
             shop.setName(name);
             shop.setAddress(address);

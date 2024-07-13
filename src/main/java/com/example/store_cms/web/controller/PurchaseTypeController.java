@@ -28,6 +28,9 @@ public class PurchaseTypeController {
 
     @PostMapping("/create")
     public String createPurchaseType(@ModelAttribute("purchaseTypeRequest") @Valid PurchaseTypeRequest purchaseTypeRequest, BindingResult result) {
+        if (purchaseTypeService.existByName(purchaseTypeRequest.getName())) {
+            result.rejectValue("name", "error.purchaseTypeRequest", "PurchaseType with this name already exists.");
+        }
         if (result.hasErrors()) {
             return "create-purchase-type";
         }
@@ -38,12 +41,19 @@ public class PurchaseTypeController {
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {
         PurchaseType purchaseType = purchaseTypeService.getById(id);
-        model.addAttribute("purchaseType", purchaseType);
+        model.addAttribute("purchaseType", purchaseTypeMapper.purchaseTypeToRequest(purchaseType));
         return "edit_purchasetype";
     }
 
     @PostMapping("/edit/{id}")
-    public String editPurchaseType(@PathVariable("id") Long id, @ModelAttribute("purchaseType") PurchaseTypeRequest purchaseType) {
+    public String editPurchaseType(@PathVariable("id") Long id, @ModelAttribute("purchaseType") @Valid  PurchaseTypeRequest purchaseType, BindingResult result) {
+        if (purchaseTypeService.existByName(purchaseType.getName())) {
+            result.rejectValue("name", "error.purchaseTypeRequest", "PurchaseType with this name already exists.");
+        }
+
+        if (result.hasErrors()) {
+            return "edit_purchasetype";
+        }
         purchaseTypeService.update(id, purchaseTypeMapper.requestToPurchaseType(purchaseType));
         return "redirect:/api/v1/main";
     }
