@@ -12,6 +12,7 @@ import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReaderBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -77,51 +80,110 @@ public class MainPageController {
 
     @GetMapping("/electrotovary")
     @ResponseBody
-    public List<ElectroItemResponse> getElectroTovary(@RequestParam Integer offset, @RequestParam Integer limit) {
-        return electroItemService.getAllElectroItemPageable(offset, limit).getContent()
-                .stream().map(electroItemMapper::electroItemToResponse).collect(Collectors.toList());
+    public Map<String, Object> getElectroTovary(@RequestParam Integer page, @RequestParam Integer limit) {
+        Page<ElectroItem> itemsPage = electroItemService.getAllElectroItemPageable(page - 1, limit);
+        List<ElectroItemResponse> items = itemsPage.getContent().stream()
+                .map(electroItemMapper::electroItemToResponse)
+                .collect(Collectors.toList());
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("items", items);
+        response.put("totalPages", itemsPage.getTotalPages());
+        response.put("totalItems", itemsPage.getTotalElements());
+        response.put("currentPage", page);
+        return response;
     }
 
     @GetMapping("/sotrudniki")
     @ResponseBody
-    public List<EmployeeResponse> getSotrudniki(@RequestParam Integer offset, @RequestParam Integer limit) {
-        return employeeService.getAllEmployeePageable(offset, limit).getContent()
-                .stream().map(employeeMapper::employeeToResponse)
+    public Map<String, Object> getSotrudniki(@RequestParam Integer page, @RequestParam Integer limit) {
+        Page<Employee> itemsPage = employeeService.getAllEmployeePageable(page - 1, limit);
+        List<EmployeeResponse> items = itemsPage.getContent().stream()
+                .map(employeeMapper::employeeToResponse)
                 .collect(Collectors.toList());
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("items", items);
+        response.put("totalPages", itemsPage.getTotalPages());
+        response.put("totalItems", itemsPage.getTotalElements());
+        response.put("currentPage", page);
+        return response;
     }
 
     @GetMapping("/pokupki")
     @ResponseBody
-    public List<PurchaseResponse> getPokupki(@RequestParam Integer offset, @RequestParam Integer limit) {
-        return purchaseService.getAllPurchasePageable(offset, limit).getContent()
-                .stream().map(purchaseMapper::purchaseToResponse)
+    public Map<String, Object> getPokupki(@RequestParam Integer page, @RequestParam Integer limit) {
+        Page<Purchase> itemsPage = purchaseService.getAllPurchasePageable(page - 1, limit);
+        List<PurchaseResponse> items = itemsPage.getContent().stream()
+                .map(purchaseMapper::purchaseToResponse)
                 .collect(Collectors.toList());
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("items", items);
+        response.put("totalPages", itemsPage.getTotalPages());
+        response.put("totalItems", itemsPage.getTotalElements());
+        response.put("currentPage", page);
+        return response;
     }
 
     @GetMapping("/references/position_type")
     @ResponseBody
-    public List<PositionTypeResponse> getPositionType(@RequestParam Integer offset, @RequestParam Integer limit) {
-        return positionTypeService.getAllPositionTypePageable(offset, limit).getContent()
-                .stream().map(positionTypeMapper::positionTypeToResponse).collect(Collectors.toList());
+    public Map<String, Object> getPositionType(@RequestParam Integer page, @RequestParam Integer limit) {
+        Page<PositionType> itemsPage = positionTypeService.getAllPositionTypePageable(page - 1, limit);
+        List<PositionTypeResponse> items = itemsPage.getContent().stream()
+                .map(positionTypeMapper::positionTypeToResponse)
+                .collect(Collectors.toList());
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("items", items);
+        response.put("totalPages", itemsPage.getTotalPages());
+        response.put("totalItems", itemsPage.getTotalElements());
+        response.put("currentPage", page);
+        return response;
     }
 
     @GetMapping("/references/purchase_type")
     @ResponseBody
-    public List<PurchaseTypeResponse> getPurchaseType(@RequestParam Integer offset, @RequestParam Integer limit) {
-        return purchaseTypeService.getAllPurchaseTypePageable(offset, limit).getContent()
-                .stream().map(purchaseTypeMapper::purchaseTypeToResponse).collect(Collectors.toList());
+    public Map<String, Object> getPurchaseType(@RequestParam Integer page, @RequestParam Integer limit) {
+        Page<PurchaseType> itemsPage = purchaseTypeService.getAllPurchaseTypePageable(page - 1, limit);
+        List<PurchaseTypeResponse> items = itemsPage.getContent().stream()
+                .map(purchaseTypeMapper::purchaseTypeToResponse)
+                .collect(Collectors.toList());
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("items", items);
+        response.put("totalPages", itemsPage.getTotalPages());
+        response.put("totalItems", itemsPage.getTotalElements());
+        response.put("currentPage", page);
+        return response;
     }
 
     @GetMapping("/references/electro_type")
     @ResponseBody
-    public List<ElectroType> getElectroType(@RequestParam Integer offset, @RequestParam Integer limit) {
-        return electroTypeService.getAllElectroTypePageable(offset, limit).getContent();
+    public Map<String, Object> getElectroType(@RequestParam Integer page, @RequestParam Integer limit) {
+        Page<ElectroType> itemsPage = electroTypeService.getAllElectroTypePageable(page - 1, limit);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("items", itemsPage.getContent());
+        response.put("totalPages", itemsPage.getTotalPages());
+        response.put("totalItems", itemsPage.getTotalElements());
+        response.put("currentPage", page);
+        return response;
     }
 
     @GetMapping("/references/shop")
     @ResponseBody
-    public List<ShopResponse> getShop(@RequestParam Integer offset, @RequestParam Integer limit) {
-        return shopService.getAllShopPageable(offset, limit).getContent().stream()
-                .map(shopMapper::shopToResponse).collect(Collectors.toList());
+    public Map<String, Object> getShop(@RequestParam Integer page, @RequestParam Integer limit) {
+        Page<Shop> itemsPage = shopService.getAllShopPageable(page - 1, limit);
+        List<ShopResponse> items = itemsPage.getContent().stream()
+                .map(shopMapper::shopToResponse)
+                .collect(Collectors.toList());
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("items", items);
+        response.put("totalPages", itemsPage.getTotalPages());
+        response.put("totalItems", itemsPage.getTotalElements());
+        response.put("currentPage", page);
+        return response;
     }
 }
