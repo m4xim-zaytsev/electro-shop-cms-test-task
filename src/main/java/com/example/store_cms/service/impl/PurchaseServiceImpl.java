@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -34,9 +35,10 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public Page<Purchase> getAllPurchasePageable(Integer offset, Integer limit) {
-        Pageable nextPage = PageRequest.of(offset,limit);
-        return purchaseRepository.findAll(nextPage);
+    public Page<Purchase> getAllPurchasePageable(Integer page, Integer limit, String sortOrder) {
+        Sort.Direction direction = sortOrder.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Pageable pageable = PageRequest.of(page, limit, Sort.by(direction, "purchaseDate"));
+        return purchaseRepository.findAll(pageable);
     }
 
     @Override

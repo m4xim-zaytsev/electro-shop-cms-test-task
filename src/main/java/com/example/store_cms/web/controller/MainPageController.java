@@ -112,8 +112,8 @@ public class MainPageController {
 
     @GetMapping("/pokupki")
     @ResponseBody
-    public Map<String, Object> getPokupki(@RequestParam Integer page, @RequestParam Integer limit) {
-        Page<Purchase> itemsPage = purchaseService.getAllPurchasePageable(page - 1, limit);
+    public Map<String, Object> getPokupki(@RequestParam Integer page, @RequestParam Integer limit, @RequestParam String sortOrder) {
+        Page<Purchase> itemsPage = purchaseService.getAllPurchasePageable(page - 1, limit, sortOrder);
         List<PurchaseResponse> items = itemsPage.getContent().stream()
                 .map(purchaseMapper::purchaseToResponse)
                 .collect(Collectors.toList());

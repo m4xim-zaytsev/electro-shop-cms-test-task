@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PurchaseService {
     List<Purchase> findAll();
-    Page<Purchase> getAllPurchasePageable(Integer offset, Integer limit);
+    Page<Purchase> getAllPurchasePageable(Integer offset, Integer limit, String sortOrder);
     Purchase create(Purchase purchase, Long electorId, Long employeeId,Long typeId, Long shopId);
     Purchase getById(Long id);
     Purchase update(Long id, Purchase purchase, Long electorId, Long employeeId,Long typeId, Long shopId);

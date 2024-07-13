@@ -1,11 +1,13 @@
+
 $(document).ready(function() {
     let currentCategory = 'electrotovary';
     let currentPage = 1;
     const limit = 5;
     let totalPages = 1;
     let totalItems = 0;
+    let sortOrder = 'desc'; // Значение по умолчанию
 
-    function fetchData(category, page, limit, append = false) {
+    function fetchData(category, page, limit, sortOrder, append = false) {
         let url;
         if (category === 'references') {
             const subcategory = $('#subcategorySelect').val();
@@ -17,7 +19,7 @@ $(document).ready(function() {
         $.ajax({
             url: url,
             method: 'GET',
-            data: { page, limit },
+            data: { page, limit, sortOrder },
             success: function(data) {
                 totalPages = data.totalPages; // Получите общее количество страниц из ответа сервера
                 totalItems = data.totalItems; // Получите общее количество записей из ответа сервера
@@ -205,14 +207,14 @@ $(document).ready(function() {
             e.preventDefault();
             const selectedPage = parseInt($(this).text());
             currentPage = selectedPage;
-            fetchData(currentCategory, currentPage, limit);
+            fetchData(currentCategory, currentPage, limit, sortOrder);
         });
     }
 
     function loadCategory(category) {
         currentCategory = category;
         currentPage = 1;
-        fetchData(category, currentPage, limit);
+        fetchData(category, currentPage, limit, sortOrder);
         setAddButtonLink(category); // Set the link for the Add button
         $('#contentTitle').text($('a[data-category="' + category + '"]').text());
         $('.nav-link').removeClass('active');
@@ -221,6 +223,11 @@ $(document).ready(function() {
             $('#subcategoryContainer').show();
         } else {
             $('#subcategoryContainer').hide();
+        }
+        if (category === 'pokupki') {
+            $('#sortOrderContainer').show();
+        } else {
+            $('#sortOrderContainer').hide();
         }
     }
 
@@ -250,8 +257,13 @@ $(document).ready(function() {
     });
 
     $('#subcategorySelect').change(function() {
-        fetchData('references', 1, limit);
+        fetchData('references', 1, limit, sortOrder);
         setAddButtonLink('references');
+    });
+
+    $('#sortOrderSelect').change(function() {
+        sortOrder = $(this).val();
+        fetchData(currentCategory, 1, limit, sortOrder);
     });
 
     // Initial load
