@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
     let currentCategory = 'electrotovary';
     let currentPage = 1;
@@ -6,6 +5,33 @@ $(document).ready(function() {
     let totalPages = 1;
     let totalItems = 0;
     let sortOrder = 'desc'; // Значение по умолчанию
+
+    function saveState() {
+        const state = {
+            currentCategory,
+            currentPage,
+            sortOrder,
+            subcategory: $('#subcategorySelect').val()
+        };
+        localStorage.setItem('estoreState', JSON.stringify(state));
+    }
+
+    function loadState() {
+        const state = JSON.parse(localStorage.getItem('estoreState'));
+        if (state) {
+            currentCategory = state.currentCategory;
+            currentPage = state.currentPage;
+            sortOrder = state.sortOrder;
+            $('#subcategorySelect').val(state.subcategory);
+
+            loadCategory(currentCategory);
+            fetchData(currentCategory, currentPage, limit, sortOrder);
+        } else {
+            // Если состояние не сохранено, загрузить категорию по умолчанию
+            loadCategory(currentCategory);
+            fetchData(currentCategory, currentPage, limit, sortOrder);
+        }
+    }
 
     function fetchData(category, page, limit, sortOrder, append = false) {
         let url;
@@ -47,17 +73,17 @@ $(document).ready(function() {
                     addUrl = '/references/position_type/add';
                     tableHeader.html(
                         `<tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Action</th>
-                        </tr>`
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Action</th>
+                            </tr>`
                     );
                     data.forEach(item => {
                         const row = `<tr>
-                            <td>${item.id}</td>
-                            <td>${item.name || ''}</td>
-                            <td><a href="/references/position_type/edit/${item.id}" class="btn btn-primary">Edit</a></td>
-                        </tr>`;
+                                <td>${item.id}</td>
+                                <td>${item.name || ''}</td>
+                                <td><a href="/references/position_type/edit/${item.id}" class="btn btn-primary">Edit</a></td>
+                            </tr>`;
                         tableBody.append(row);
                     });
                     break;
@@ -65,17 +91,17 @@ $(document).ready(function() {
                     addUrl = '/references/purchase_type/add';
                     tableHeader.html(
                         `<tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Action</th>
-                        </tr>`
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Action</th>
+                            </tr>`
                     );
                     data.forEach(item => {
                         const row = `<tr>
-                            <td>${item.id}</td>
-                            <td>${item.name || ''}</td>
-                            <td><a href="/references/purchase_type/edit/${item.id}" class="btn btn-primary">Edit</a></td>
-                        </tr>`;
+                                <td>${item.id}</td>
+                                <td>${item.name || ''}</td>
+                                <td><a href="/references/purchase_type/edit/${item.id}" class="btn btn-primary">Edit</a></td>
+                            </tr>`;
                         tableBody.append(row);
                     });
                     break;
@@ -83,17 +109,17 @@ $(document).ready(function() {
                     addUrl = '/references/electro_type/add';
                     tableHeader.html(
                         `<tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Action</th>
-                        </tr>`
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Action</th>
+                            </tr>`
                     );
                     data.forEach(item => {
                         const row = `<tr>
-                            <td>${item.id}</td>
-                            <td>${item.name || ''}</td>
-                            <td><a href="/references/electro_type/edit/${item.id}" class="btn btn-primary">Edit</a></td>
-                        </tr>`;
+                                <td>${item.id}</td>
+                                <td>${item.name || ''}</td>
+                                <td><a href="/references/electro_type/edit/${item.id}" class="btn btn-primary">Edit</a></td>
+                            </tr>`;
                         tableBody.append(row);
                     });
                     break;
@@ -101,19 +127,19 @@ $(document).ready(function() {
                     addUrl = '/references/shop/add';
                     tableHeader.html(
                         `<tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>Action</th>
-                        </tr>`
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Action</th>
+                            </tr>`
                     );
                     data.forEach(item => {
                         const row = `<tr>
-                            <td>${item.id}</td>
-                            <td>${item.name || ''}</td>
-                            <td>${item.address || ''}</td>
-                            <td><a href="/references/shop/edit/${item.id}" class="btn btn-primary">Edit</a></td>
-                        </tr>`;
+                                <td>${item.id}</td>
+                                <td>${item.name || ''}</td>
+                                <td>${item.address || ''}</td>
+                                <td><a href="/references/shop/edit/${item.id}" class="btn btn-primary">Edit</a></td>
+                            </tr>`;
                         tableBody.append(row);
                     });
                     break;
@@ -128,19 +154,19 @@ $(document).ready(function() {
                     addUrl = '/electrotovary/add';
                     tableHeader.html(
                         `<tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Action</th>
-                        </tr>`
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>`
                     );
                     data.forEach(item => {
                         const row = `<tr>
-                            <td>${item.id}</td>
-                            <td>${item.name || ''}</td>
-                            <td>${item.description || ''}</td>
-                            <td><a href="/electrotovary/edit/${item.id}" class="btn btn-primary">Edit</a></td>
-                        </tr>`;
+                                <td>${item.id}</td>
+                                <td>${item.name || ''}</td>
+                                <td>${item.description || ''}</td>
+                                <td><a href="/electrotovary/edit/${item.id}" class="btn btn-primary">Edit</a></td>
+                            </tr>`;
                         tableBody.append(row);
                     });
                     break;
@@ -148,19 +174,19 @@ $(document).ready(function() {
                     addUrl = '/pokupki/add';
                     tableHeader.html(
                         `<tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Purchase Date</th>
-                            <th>Action</th>
-                        </tr>`
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Purchase Date</th>
+                                <th>Action</th>
+                            </tr>`
                     );
                     data.forEach(item => {
                         const row = `<tr>
-                            <td>${item.id}</td>
-                            <td>${item.electroItemResponse ? item.electroItemResponse.name : ''}</td>
-                            <td>${item.purchaseDate || ''}</td>
-                            <td><a href="/pokupki/edit/${item.id}" class="btn btn-primary">Edit</a></td>
-                        </tr>`;
+                                <td>${item.id}</td>
+                                <td>${item.electroItemResponse ? item.electroItemResponse.name : ''}</td>
+                                <td>${item.purchaseDate || ''}</td>
+                                <td><a href="/pokupki/edit/${item.id}" class="btn btn-primary">Edit</a></td>
+                            </tr>`;
                         tableBody.append(row);
                     });
                     break;
@@ -168,19 +194,19 @@ $(document).ready(function() {
                     addUrl = '/sotrudniki/add';
                     tableHeader.html(
                         `<tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Action</th>
-                        </tr>`
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Action</th>
+                            </tr>`
                     );
                     data.forEach(item => {
                         const row = `<tr>
-                            <td>${item.id}</td>
-                            <td>${item.lastName ? item.lastName + ' ' + (item.firstName || '') : ''}</td>
-                            <td>${item.positionTypeResponse ? item.positionTypeResponse.name : ''}</td>
-                            <td><a href="/sotrudniki/edit/${item.id}" class="btn btn-primary">Edit</a></td>
-                        </tr>`;
+                                <td>${item.id}</td>
+                                <td>${item.lastName ? item.lastName + ' ' + (item.firstName || '') : ''}</td>
+                                <td>${item.positionTypeResponse ? item.positionTypeResponse.name : ''}</td>
+                                <td><a href="/sotrudniki/edit/${item.id}" class="btn btn-primary">Edit</a></td>
+                            </tr>`;
                         tableBody.append(row);
                     });
                     break;
@@ -208,14 +234,12 @@ $(document).ready(function() {
             const selectedPage = parseInt($(this).text());
             currentPage = selectedPage;
             fetchData(currentCategory, currentPage, limit, sortOrder);
+            saveState();
         });
     }
 
     function loadCategory(category) {
         currentCategory = category;
-        currentPage = 1;
-        fetchData(category, currentPage, limit, sortOrder);
-        setAddButtonLink(category); // Set the link for the Add button
         $('#contentTitle').text($('a[data-category="' + category + '"]').text());
         $('.nav-link').removeClass('active');
         $('a[data-category="' + category + '"]').addClass('active');
@@ -229,6 +253,7 @@ $(document).ready(function() {
         } else {
             $('#sortOrderContainer').hide();
         }
+        setAddButtonLink(category); // Set the link for the Add button
     }
 
     function setAddButtonLink(category) {
@@ -253,19 +278,31 @@ $(document).ready(function() {
 
     // Event bindings
     $('.nav-link').click(function() {
+        currentPage = 1; // Reset to first page when changing category
         loadCategory($(this).data('category'));
+        fetchData($(this).data('category'), currentPage, limit, sortOrder);
     });
 
     $('#subcategorySelect').change(function() {
-        fetchData('references', 1, limit, sortOrder);
+        currentPage = 1; // Reset to first page when changing subcategory
+        fetchData('references', currentPage, limit, sortOrder);
         setAddButtonLink('references');
     });
 
     $('#sortOrderSelect').change(function() {
         sortOrder = $(this).val();
-        fetchData(currentCategory, 1, limit, sortOrder);
+        currentPage = 1; // Reset to first page when changing sort order
+        fetchData(currentCategory, currentPage, limit, sortOrder);
+    });
+
+    $('#addButtonLink').click(function() {
+        saveState();
+    });
+
+    $('#itemsTable').on('click', '.btn-primary', function() {
+        saveState();
     });
 
     // Initial load
-    loadCategory(currentCategory);
+    loadState();
 });

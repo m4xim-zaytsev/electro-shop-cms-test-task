@@ -33,6 +33,7 @@ import java.util.zip.ZipInputStream;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Slf4j
 @Controller
@@ -64,17 +65,20 @@ public class MainPageController {
     }
 
     @PostMapping("/upload-zip")
-    public ResponseEntity<String> uploadZipFile(@RequestParam("file") MultipartFile file) {
+    public String uploadZipFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         if (file.isEmpty()) {
-            return ResponseEntity.badRequest().body("File is empty");
+            redirectAttributes.addFlashAttribute("message", "File is empty");
+            return "redirect:/api/v1/main";
         }
 
         try {
             scvService.processZipFile(file);
-            return ResponseEntity.ok("File uploaded and processed successfully");
+            redirectAttributes.addFlashAttribute("message", "File uploaded and processed successfully");
+            return "redirect:/api/v1/main";
         } catch (IOException e) {
             log.error("Error processing file", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing file: " + e.getMessage());
+            redirectAttributes.addFlashAttribute("message", "Error processing file: " + e.getMessage());
+            return "redirect:/api/v1/main";
         }
     }
 
