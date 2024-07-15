@@ -83,4 +83,9 @@ public class PurchaseServiceImpl implements PurchaseService {
     public void delete(Long id) {
         purchaseRepository.deleteById(id);
     }
+
+    @Override
+    public Long getTotalCashPayments() {
+        return purchaseRepository.findTotalCashPayments();
+    }
 }

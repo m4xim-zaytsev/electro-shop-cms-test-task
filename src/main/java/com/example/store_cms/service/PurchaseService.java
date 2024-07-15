@@ -12,5 +12,5 @@ public interface PurchaseService {
     Purchase getById(Long id);
     Purchase update(Long id, Purchase purchase, Long electorId, Long employeeId,Long typeId, Long shopId);
     void delete(Long id);
-
+    Long getTotalCashPayments();
 }

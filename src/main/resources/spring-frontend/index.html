@@ -27,6 +27,9 @@
             <li class="nav-item">
                 <a id="navReferences" class="nav-link" data-category="references">Справочники</a>
             </li>
+            <li class="nav-item">
+                <a id="navAdditional" class="nav-link" data-category="additional">Дополнительно</a>
+            </li>
         </ul>
     </nav>
     <main class="content">
@@ -47,14 +50,25 @@
                 <option value="asc">По возрастанию</option>
             </select>
         </div>
+        <div id="additionalContainer" style="display: none;">
+            <label for="additionalSelect">Выберите отчет:</label>
+            <select id="additionalSelect" class="form-control">
+                <option value="best-count">Лучшие сотрудники по количеству проданных товаров</option>
+                <option value="best-sales">Лучшие сотрудники по сумме продаж</option>
+                <option value="best-junior-salesperson-smartwatches">Лучший младший продавец-консультант по продажам умных часов</option>
+            </select>
+            <button id="loadAdditionalData" class="btn btn-primary mt-2">Загрузить данные</button>
+        </div>
         <div class="table-container">
             <a id="addButtonLink" class="btn btn-success mb-3">Добавить </a>
             <table class="table table-bordered" id="itemsTable">
                 <thead id="tableHeader">
                 <tr>
                     <th>Id</th>
-                    <th>Name</th>
-                    <th>Description</th>
+                    <th>Full Name</th>
+                    <th>Items Sold</th>
+                    <th>Total Sales</th>
+                    <th>Position</th>
                     <th>Actions</th>
                 </tr>
                 </thead>

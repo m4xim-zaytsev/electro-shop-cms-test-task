@@ -2,9 +2,11 @@ package com.example.store_cms.web.controller;
 
 import com.example.store_cms.mapper.*;
 import com.example.store_cms.model.directory.*;
+import com.example.store_cms.model.dto.BestEmployeeDTO;
 import com.example.store_cms.model.registry.ElectroItem;
 import com.example.store_cms.model.registry.Employee;
 import com.example.store_cms.model.registry.Purchase;
+import com.example.store_cms.repository.EmployeeRepository;
 import com.example.store_cms.service.*;
 import com.example.store_cms.web.request.ShopRequest;
 import com.example.store_cms.web.response.*;
@@ -13,6 +15,7 @@ import com.opencsv.CSVReaderBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,10 +26,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -48,6 +48,7 @@ public class MainPageController {
     private final PurchaseTypeService purchaseTypeService;
     private final ElectroTypeService electroTypeService;
     private final ShopService shopService;
+    private final FilterService filterService;
 
     private final ShopMapper shopMapper;
     private final EmployeeMapper employeeMapper;
@@ -55,6 +56,7 @@ public class MainPageController {
     private final ElectroItemMapper electroItemMapper;
     private final PositionTypeMapper positionTypeMapper;
     private final PurchaseTypeMapper purchaseTypeMapper;
+    private final EmployeeDTOMapper employeeDTOMapper;
 
     private final ScvService scvService;
 
@@ -62,6 +64,57 @@ public class MainPageController {
     @GetMapping
     public String mainPage() {
         return "index";
+    }
+
+
+    @GetMapping("/best-count")
+    @ResponseBody
+    public List<BestEmployeeDTO> getBestEmployees() {
+        return filterService.getBestEmployees().stream().map(
+                result -> {
+                    Employee employee = (Employee) result[0];
+                    Long totalSales = (Long) result[1];
+                    Long itemsSold = (Long) result[2];
+                    return employeeDTOMapper.toDTO(employee, totalSales, itemsSold);
+                }
+        ).sorted(Comparator.comparingLong(BestEmployeeDTO::getItemsSold).reversed())
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/best-sales")
+    @ResponseBody
+    public List<BestEmployeeDTO> getBestEmployeesSales() {
+        return filterService.findBestEmployeesSales().stream().map(
+                result -> {
+                    Employee employee = (Employee) result[0];
+                    Long totalSales = (Long) result[1];
+                    Long itemsSold = (Long) result[2];
+                    return employeeDTOMapper.toDTO(employee, totalSales, itemsSold);
+                }
+        ).sorted(Comparator.comparingLong(BestEmployeeDTO::getTotalSales).reversed())
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/best-junior-salesperson-smartwatches")
+    @ResponseBody
+    public List<BestEmployeeDTO> getBestJuniorSalespersonForSmartWatches() {
+
+        List<Object[]> results = filterService.getBestJuniorSalespersonForSmartWatches();
+        if (!results.isEmpty()) {
+            Object[] result = results.get(0);
+            Employee employee = (Employee) result[0];
+            Long totalSales = (Long) result[1];
+            Long itemsSold = (Long) result[2];
+            return Collections
+                    .singletonList(employeeDTOMapper.toDTO(employee, totalSales, itemsSold));
+        }
+        return null;
+    }
+
+    @GetMapping("/total-cash-payments")
+    @ResponseBody
+    public Long getTotalCashPayments() {
+        return purchaseService.getTotalCashPayments();
     }
 
     @PostMapping("/upload-zip")

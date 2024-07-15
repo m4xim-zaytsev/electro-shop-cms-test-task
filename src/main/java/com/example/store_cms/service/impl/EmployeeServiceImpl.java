@@ -4,8 +4,10 @@ import com.example.store_cms.exception.EntityNotFoundException;
 import com.example.store_cms.model.directory.ElectroEmployee;
 import com.example.store_cms.model.directory.PositionType;
 import com.example.store_cms.model.directory.Shop;
+import com.example.store_cms.model.dto.BestEmployeeDTO;
 import com.example.store_cms.model.registry.Employee;
 import com.example.store_cms.repository.EmployeeRepository;
+import com.example.store_cms.repository.PurchaseRepository;
 import com.example.store_cms.service.*;
 import com.example.store_cms.utility.BeanUtils;
 import lombok.RequiredArgsConstructor;
@@ -15,13 +17,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class EmployeeServiceImpl implements EmployeeService ,EmployeeFilter{
+public class EmployeeServiceImpl implements EmployeeService, FilterService {
 
     private final EmployeeRepository employeeRepository;
+    private final PurchaseRepository purchaseRepository;
+
     private final PositionTypeService positionTypeService;
     private final ElectroEmployeeService electroEmployeeService;
     private final ElectroTypeService electroTypeService;
@@ -45,19 +51,33 @@ public class EmployeeServiceImpl implements EmployeeService ,EmployeeFilter{
     }
 
     @Override
-    public List<Employee> findEmployeesWithTotalCountProductsSold(Long positionTypeId) {
-        return employeeRepository.findEmployeesWithTotalCountProductsSold(positionTypeId);
+    public List<Object[]> getBestEmployees() {
+        Calendar calendar = Calendar.getInstance();
+        Date endDate = calendar.getTime();
+        calendar.add(Calendar.YEAR, -1);
+        Date startDate = calendar.getTime();
+
+        return employeeRepository.findBestEmployees(startDate, endDate);
+    }
+
+
+
+    @Override
+    public List<Object[]> findBestEmployeesSales() {
+        Calendar calendar = Calendar.getInstance();
+        Date endDate = calendar.getTime();
+        calendar.add(Calendar.YEAR, -1);
+        Date startDate = calendar.getTime();
+
+        return employeeRepository.findBestEmployeesSales(startDate, endDate);
+
     }
 
     @Override
-    public List<Employee> findEmployeesWithTotalPriceProductsSold(Long positionTypeId) {
-        return employeeRepository.findEmployeesWithTotalCountProductsSold(positionTypeId);
+    public List<Object[]> getBestJuniorSalespersonForSmartWatches() {
+        return employeeRepository.findBestJuniorSalespersonForSmartWatches();
     }
 
-    @Override
-    public Employee getTopBySmartWatch() {
-        return employeeRepository.getTopBySmartWatch();
-    }
 
     @Override
     public Page<Employee> getAllEmployeePageable(Integer offset, Integer limit) {

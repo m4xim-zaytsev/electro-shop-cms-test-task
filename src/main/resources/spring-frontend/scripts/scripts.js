@@ -38,6 +38,9 @@ $(document).ready(function() {
         if (category === 'references') {
             const subcategory = $('#subcategorySelect').val();
             url = `/api/v1/main/references/${subcategory}`;
+        } else if (category === 'additional') {
+            const reportType = $('#additionalSelect').val();
+            url = `/api/v1/main/${reportType}`;
         } else {
             url = `/api/v1/main/${category}`;
         }
@@ -47,13 +50,20 @@ $(document).ready(function() {
             method: 'GET',
             data: { page, limit, sortOrder },
             success: function(data) {
-                totalPages = data.totalPages; // Получите общее количество страниц из ответа сервера
-                totalItems = data.totalItems; // Получите общее количество записей из ответа сервера
-                updateTable(data.items, category, append);
+                if (Array.isArray(data) && data.length === 0) {
+                    totalPages = 1;
+                    totalItems = 0;
+                } else {
+                    totalPages = data.totalPages || 1; // Получите общее количество страниц из ответа сервера
+                    totalItems = data.totalItems || data.length; // Получите общее количество записей из ответа сервера
+                }
+                updateTable(data.items || data, category, append);
                 updatePagination(page, totalPages, totalItems);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error("Error fetching data:", textStatus, errorThrown);
+                updateTable([], category, append); // Обновление таблицы пустыми данными
+                updatePagination(1, 1, 0); // Установка значений для пустых данных
             }
         });
     }
@@ -147,6 +157,33 @@ $(document).ready(function() {
                     break;
             }
             $('#addButtonLink').attr('href', addUrl).show();
+        } else if (category === 'additional') {
+            tableHeader.html(
+                `<tr>
+                    <th>Id</th>
+                    <th>Full Name</th>
+                    <th>Items Sold</th>
+                    <th>Total Sales</th>
+                    <th>Position</th>
+                </tr>`
+            );
+            if (data.length === 0) {
+                const row = `<tr>
+                    <td colspan="5" class="text-center">Нет данных для отображения</td>
+                </tr>`;
+                tableBody.append(row);
+            } else {
+                data.forEach(item => {
+                    const row = `<tr>
+                        <td>${item.id}</td>
+                        <td>${item.fullName}</td>
+                        <td>${item.itemsSold}</td>
+                        <td>${item.totalSales}</td>
+                        <td>${item.position}</td>
+                    </tr>`;
+                    tableBody.append(row);
+                });
+            }
         } else {
             let addUrl = '';
             switch (category) {
@@ -253,6 +290,13 @@ $(document).ready(function() {
         } else {
             $('#sortOrderContainer').hide();
         }
+        if (category === 'additional') {
+            $('#additionalContainer').show();
+            $('#addButtonLink').hide();
+        } else {
+            $('#additionalContainer').hide();
+            $('#addButtonLink').show();
+        }
         setAddButtonLink(category); // Set the link for the Add button
     }
 
@@ -301,6 +345,10 @@ $(document).ready(function() {
 
     $('#itemsTable').on('click', '.btn-primary', function() {
         saveState();
+    });
+
+    $('#loadAdditionalData').click(function() {
+        fetchData('additional', 1, limit, sortOrder);
     });
 
     // Initial load
